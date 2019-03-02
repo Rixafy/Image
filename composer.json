@@ -1,0 +1,16 @@
+{
+    "name": "rixafy/image",
+    "description": "Image model layer for saving and rendering (webp) images",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Rick Strafy",
+            "email": "rixafy@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "rixafy/doctrination": "dev-master"
+    }
+}
