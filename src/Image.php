@@ -7,6 +7,7 @@ namespace Rixafy\Image;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Selectable;
+use Rixafy\Blog\ImageData;
 use Rixafy\Doctrination\EntityTranslator;
 use Rixafy\Doctrination\Language\Language;
 use Rixafy\DoctrineTraits\ActiveTrait;
@@ -56,9 +57,18 @@ class Image extends EntityTranslator
      */
     private $translations;
 
-    public function __construct()
+    public function __construct(ImageData $imageData)
     {
+        $this->url_name = $imageData->urlName;
+        $this->description = $imageData->description;
+        $this->title = $imageData->title;
+        $this->alternative_text = $imageData->alternativeText;
+
         $this->translations = new ArrayCollection();
+
+        $this->addTranslation($this->url_name, $this->description, $this->title, $this->alternative_text, $imageData->language);
+
+        $this->configureFallbackLanguage($imageData->language);
     }
 
     /**
