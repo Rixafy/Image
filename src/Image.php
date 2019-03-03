@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace Rixafy\Image;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Selectable;
 use Rixafy\Doctrination\EntityTranslator;
+use Rixafy\Doctrination\Language\Language;
 use Rixafy\DoctrineTraits\ActiveTrait;
 use Rixafy\DoctrineTraits\DateTimeTrait;
 use Rixafy\DoctrineTraits\UniqueTrait;
@@ -47,12 +49,17 @@ class Image extends EntityTranslator
     protected $alternative_text;
 
     /**
-     * One Blog has Many Translations
+     * One Image has Many Translations
      *
-     * @ORM\OneToMany(targetEntity="\Rixafy\Blog\BlogTranslation", mappedBy="entity", cascade={"persist", "remove"})
-     * @var BlogTranslation[]
+     * @ORM\OneToMany(targetEntity="\Rixafy\Image\ImageTranslation", mappedBy="entity", cascade={"persist", "remove"})
+     * @var ImageTranslation[]
      */
     private $translations;
+
+    public function __construct()
+    {
+        $this->translations = new ArrayCollection();
+    }
 
     /**
      * @return string
@@ -86,11 +93,29 @@ class Image extends EntityTranslator
         return $this->alternative_text;
     }
 
+
     /**
-     * @return Selectable
+     * @return ImageTranslation[]
      */
     public function getTranslations()
     {
-        // TODO: Implement getTranslations() method.
+        return $this->translations;
+    }
+
+    /**
+     * @param string $urlName
+     * @param string $title
+     * @param string $description
+     * @param string $alternativeText
+     * @param Language $language
+     * @return ImageTranslation
+     */
+    public function addTranslation(string $urlName, string $description, string $title, string $alternativeText, Language $language): ImageTranslation
+    {
+        $translation = new ImageTranslation($urlName, $title, $description, $alternativeText, $language, $this);
+
+        $this->translations->add($translation);
+
+        return $translation;
     }
 }
