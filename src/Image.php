@@ -48,6 +48,18 @@ class Image extends EntityTranslator
     protected $alternative_text;
 
     /**
+     * @ORM\Column(type="string", length=255)
+     * @var string
+     */
+    private $real_path;
+
+    /**
+     * @ORM\Column(type="string", length=5)
+     * @var string
+     */
+    private $file_extension;
+
+    /**
      * One Image has Many Translations
      *
      * @ORM\OneToMany(targetEntity="\Rixafy\Image\ImageTranslation", mappedBy="entity", cascade={"persist", "remove"})
@@ -61,6 +73,8 @@ class Image extends EntityTranslator
         $this->description = $imageData->description;
         $this->title = $imageData->title;
         $this->alternative_text = $imageData->alternativeText;
+        $this->real_path = $imageData->realPath;
+        $this->file_extension = $imageData->fileExtension;
 
         $this->translations = new ArrayCollection();
 
@@ -101,6 +115,21 @@ class Image extends EntityTranslator
         return $this->alternative_text;
     }
 
+    /**
+     * @return string
+     */
+    public function getRealPath(): string
+    {
+        return $this->real_path;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFileExtension(): string
+    {
+        return $this->file_extension;
+    }
 
     /**
      * @return ImageTranslation[]

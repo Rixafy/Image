@@ -20,6 +20,12 @@ class ImageData
     /** @var string */
     public $alternativeText;
 
+    /** @var string */
+    public $realPath;
+
+    /** @var string */
+    public $fileExtension;
+
     /** @var Language */
     public $language;
 }
