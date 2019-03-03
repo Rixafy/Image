@@ -4,10 +4,8 @@ declare(strict_types=1);
 
 namespace Rixafy\Image;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\Common\Collections\Selectable;
-use Rixafy\Blog\ImageData;
+use Doctrine\Common\Collections\ArrayCollection;
 use Rixafy\Doctrination\EntityTranslator;
 use Rixafy\Doctrination\Language\Language;
 use Rixafy\DoctrineTraits\ActiveTrait;
