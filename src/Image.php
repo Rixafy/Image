@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Rixafy\Blog;
+namespace Rixafy\Image;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Selectable;
@@ -45,6 +45,14 @@ class Image extends EntityTranslator
      * @var string
      */
     protected $alternative_text;
+
+    /**
+     * One Blog has Many Translations
+     *
+     * @ORM\OneToMany(targetEntity="\Rixafy\Blog\BlogTranslation", mappedBy="entity", cascade={"persist", "remove"})
+     * @var BlogTranslation[]
+     */
+    private $translations;
 
     /**
      * @return string
