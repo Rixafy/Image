@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Rixafy\Blog;
+namespace Rixafy\Image;
 
 use Rixafy\Doctrination\Language\Language;
 
