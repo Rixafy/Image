@@ -54,6 +54,18 @@ class Image extends EntityTranslator
     private $real_path;
 
     /**
+     * @ORM\Column(type="smallint")
+     * @var int
+     */
+    private $width;
+
+    /**
+     * @ORM\Column(type="smallint")
+     * @var int
+     */
+    private $height;
+
+    /**
      * @ORM\Column(type="string", length=5)
      * @var string
      */
@@ -74,6 +86,8 @@ class Image extends EntityTranslator
         $this->title = $imageData->title;
         $this->alternative_text = $imageData->alternativeText;
         $this->real_path = $imageData->realPath;
+        $this->width = $imageData->width;
+        $this->height = $imageData->height;
         $this->file_extension = $imageData->fileExtension;
 
         $this->translations = new ArrayCollection();
@@ -121,6 +135,22 @@ class Image extends EntityTranslator
     public function getRealPath(): string
     {
         return $this->real_path;
+    }
+
+    /**
+     * @return int
+     */
+    public function getWidth(): int
+    {
+        return $this->width;
+    }
+
+    /**
+     * @return int
+     */
+    public function getHeight(): int
+    {
+        return $this->height;
     }
 
     /**
