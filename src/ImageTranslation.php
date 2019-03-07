@@ -86,27 +86,11 @@ class ImageTranslation
     }
 
     /**
-     * @param string $url_name
-     */
-    public function setUrlName(string $url_name): void
-    {
-        $this->url_name = $url_name;
-    }
-
-    /**
      * @return string
      */
     public function getTitle(): string
     {
         return $this->title;
-    }
-
-    /**
-     * @param string $title
-     */
-    public function setTitle(string $title): void
-    {
-        $this->title = $title;
     }
 
     /**
@@ -118,42 +102,10 @@ class ImageTranslation
     }
 
     /**
-     * @param string $description
-     */
-    public function setDescription(string $description): void
-    {
-        $this->description = $description;
-    }
-
-    /**
      * @return string
      */
     public function getAlternativeText(): string
     {
         return $this->alternative_text;
-    }
-
-    /**
-     * @param string $alternative_text
-     */
-    public function setAlternativeText(string $alternative_text): void
-    {
-        $this->alternative_text = $alternative_text;
-    }
-
-    /**
-     * @return \Rixafy\Doctrination\Language\Language
-     */
-    public function getLanguage(): Language
-    {
-        return $this->language;
-    }
-
-    /**
-     * @param \Rixafy\Doctrination\Language\Language $language
-     */
-    public function setLanguage(Language $language): void
-    {
-        $this->language = $language;
     }
 }
