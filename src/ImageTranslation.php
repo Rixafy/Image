@@ -60,21 +60,23 @@ class ImageTranslation
 
     /**
      * ImageTranslation constructor.
-     * @param string $name
-     * @param string $title
-     * @param string $description
-     * @param string $alternativeText
+     * @param ImageData $imageData
      * @param \Rixafy\Doctrination\Language\Language $language
      * @param Image $entity
      */
-    public function __construct(string $name, string $description, string $title, string $alternativeText, Language $language, Image $entity)
+    public function __construct(ImageData $imageData, Language $language, Image $entity)
     {
-        $this->url_name = $name;
-        $this->description = $description;
-        $this->title = $title;
-        $this->alternative_text = $alternativeText;
         $this->language = $language;
         $this->entity = $entity;
+        $this->edit($imageData);
+    }
+
+    public function edit(ImageData $imageData)
+    {
+        $this->url_name = $imageData->urlName;
+        $this->description = $imageData->description;
+        $this->title = $imageData->title;
+        $this->alternative_text = $imageData->alternativeText;
     }
 
     /**

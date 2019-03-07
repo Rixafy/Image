@@ -92,7 +92,7 @@ class Image extends EntityTranslator
 
         $this->translations = new ArrayCollection();
 
-        $this->addTranslation($this->url_name, $this->description, $this->title, $this->alternative_text, $imageData->language);
+        $this->addTranslation($imageData, $imageData->language);
 
         $this->configureFallbackLanguage($imageData->language);
     }
@@ -170,16 +170,13 @@ class Image extends EntityTranslator
     }
 
     /**
-     * @param string $urlName
-     * @param string $title
-     * @param string $description
-     * @param string $alternativeText
+     * @param ImageData $imageData
      * @param Language $language
      * @return ImageTranslation
      */
-    public function addTranslation(string $urlName, string $description, string $title, string $alternativeText, Language $language): ImageTranslation
+    public function addTranslation(ImageData $imageData, Language $language): ImageTranslation
     {
-        $translation = new ImageTranslation($urlName, $title, $description, $alternativeText, $language, $this);
+        $translation = new ImageTranslation($imageData, $language, $this);
 
         $this->translations->add($translation);
 
