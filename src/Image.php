@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Rixafy\Image;
 
+use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Rixafy\Doctrination\EntityTranslator;
@@ -81,20 +82,42 @@ class Image extends EntityTranslator
 
     public function __construct(ImageData $imageData)
     {
-        $this->url_name = $imageData->urlName;
-        $this->description = $imageData->description;
-        $this->title = $imageData->title;
-        $this->alternative_text = $imageData->alternativeText;
         $this->real_path = $imageData->realPath;
         $this->width = $imageData->width;
         $this->height = $imageData->height;
         $this->file_extension = $imageData->fileExtension;
-
         $this->translations = new ArrayCollection();
 
-        $this->addTranslation($imageData, $imageData->language);
+        $this->edit($imageData);
+    }
 
-        $this->configureFallbackLanguage($imageData->language);
+    public function edit(ImageData $imageData)
+    {
+        if ($imageData->language !== null) {
+            if ($this->fallback_language === null) {
+                $this->addTranslation($imageData, $imageData->language);
+
+            } else {
+                $criteria = Criteria::create()
+                    ->where(Criteria::expr()->eq('language', $imageData->language))
+                    ->setMaxResults(1);
+
+                /** @var ImageTranslation $translation */
+                $translation = $this->translations->matching($criteria);
+
+                if ($translation !== null) {
+                    $translation->edit($imageData);
+
+                } else {
+                    $this->addTranslation($imageData, $imageData->language);
+                }
+            }
+        }
+
+        $this->url_name = $imageData->urlName;
+        $this->description = $imageData->description;
+        $this->title = $imageData->title;
+        $this->alternative_text = $imageData->alternativeText;
     }
 
     /**
@@ -179,6 +202,10 @@ class Image extends EntityTranslator
         $translation = new ImageTranslation($imageData, $language, $this);
 
         $this->translations->add($translation);
+
+        if ($this->fallback_language === null) {
+            $this->configureFallbackLanguage($language);
+        }
 
         return $translation;
     }
