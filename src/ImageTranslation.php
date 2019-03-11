@@ -68,11 +68,6 @@ class ImageTranslation
     {
         $this->language = $language;
         $this->entity = $entity;
-        $this->edit($imageData);
-    }
-
-    public function edit(ImageData $imageData)
-    {
         $this->url_name = $imageData->urlName;
         $this->description = $imageData->description;
         $this->title = $imageData->title;

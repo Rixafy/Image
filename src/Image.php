@@ -4,11 +4,9 @@ declare(strict_types=1);
 
 namespace Rixafy\Image;
 
-use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Rixafy\Doctrination\EntityTranslator;
-use Rixafy\Doctrination\Language\Language;
 use Rixafy\DoctrineTraits\ActiveTrait;
 use Rixafy\DoctrineTraits\DateTimeTrait;
 use Rixafy\DoctrineTraits\UniqueTrait;
@@ -91,33 +89,12 @@ class Image extends EntityTranslator
         $this->edit($imageData);
     }
 
+    /**
+     * @param ImageData $imageData
+     */
     public function edit(ImageData $imageData)
     {
-        if ($imageData->language !== null) {
-            if ($this->fallback_language === null) {
-                $this->addTranslation($imageData, $imageData->language);
-
-            } else {
-                $criteria = Criteria::create()
-                    ->where(Criteria::expr()->eq('language', $imageData->language))
-                    ->setMaxResults(1);
-
-                /** @var ImageTranslation $translation */
-                $translation = $this->translations->matching($criteria);
-
-                if ($translation !== null) {
-                    $translation->edit($imageData);
-
-                } else {
-                    $this->addTranslation($imageData, $imageData->language);
-                }
-            }
-        }
-
-        $this->url_name = $imageData->urlName;
-        $this->description = $imageData->description;
-        $this->title = $imageData->title;
-        $this->alternative_text = $imageData->alternativeText;
+        $this->editTranslation($imageData);
     }
 
     /**
@@ -190,23 +167,5 @@ class Image extends EntityTranslator
     public function getTranslations()
     {
         return $this->translations;
-    }
-
-    /**
-     * @param ImageData $imageData
-     * @param Language $language
-     * @return ImageTranslation
-     */
-    public function addTranslation(ImageData $imageData, Language $language): ImageTranslation
-    {
-        $translation = new ImageTranslation($imageData, $language, $this);
-
-        $this->translations->add($translation);
-
-        if ($this->fallback_language === null) {
-            $this->configureFallbackLanguage($language);
-        }
-
-        return $translation;
     }
 }
