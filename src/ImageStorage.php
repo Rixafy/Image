@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Rixafy\Image;
 
+use Rixafy\Image\Exception\ImageNotFoundException;
 use Rixafy\Image\Exception\ImageSaveException;
 
 class ImageStorage
@@ -19,7 +20,7 @@ class ImageStorage
     /**
      * @param $file
      * @param string $id
-     * @return string
+     * @return string Real path of image
      * @throws ImageSaveException
      */
     public function save($file, string $id): string
@@ -33,5 +34,16 @@ class ImageStorage
         }
 
         return $target;
+    }
+
+    /**
+     * @param string $path
+     * @throws ImageNotFoundException
+     */
+    public function remove(string $path): void
+    {
+        if (!@unlink($path)) {
+           throw new ImageNotFoundException('Path "' . $path . '" is invalid, image cannot be removed.');
+        }
     }
 }
