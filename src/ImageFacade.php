@@ -77,4 +77,19 @@ class ImageFacade
     {
         return $this->imageRepository->get($id);
     }
+
+    /**
+     * Permanent, removes image from database and disk
+     *
+     * @param string $id
+     * @throws Exception\ImageNotFoundException
+     */
+    public function remove(string $id): void
+    {
+        $entity = $this->get($id);
+
+        $this->entityManager->remove($entity);
+
+        $this->entityManager->flush();
+    }
 }
