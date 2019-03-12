@@ -73,7 +73,6 @@ class ImageRepository
     public function getQueryBuilderForAll(): QueryBuilder
     {
         return $this->getRepository()->createQueryBuilder('i')
-            ->where('i.is_active = :active')->setParameter('active', true)
             ->orderBy('i.created_at');
     }
 }
