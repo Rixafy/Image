@@ -8,6 +8,9 @@ use Doctrine\ORM\EntityManagerInterface;
 
 class ImageFacade
 {
+    /** @var ImageConfig */
+    private $imageConfig;
+
     /** @var EntityManagerInterface */
     private $entityManager;
 
@@ -19,11 +22,13 @@ class ImageFacade
 
     /**
      * ImageFacade constructor.
+     * @param ImageConfig $imageConfig
      * @param EntityManagerInterface $entityManager
      * @param ImageRepository $imageRepository
      * @param ImageFactory $imageFactory
      */
     public function __construct(
+        ImageConfig $imageConfig,
         EntityManagerInterface $entityManager,
         ImageRepository $imageRepository,
         ImageFactory $imageFactory
