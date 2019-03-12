@@ -8,8 +8,8 @@ use Doctrine\ORM\EntityManagerInterface;
 
 class ImageFacade
 {
-    /** @var ImageConfig */
-    private $imageConfig;
+    /** @var ImageStorage */
+    private $imageStorage;
 
     /** @var EntityManagerInterface */
     private $entityManager;
@@ -22,17 +22,18 @@ class ImageFacade
 
     /**
      * ImageFacade constructor.
-     * @param ImageConfig $imageConfig
+     * @param ImageStorage $imageStorage
      * @param EntityManagerInterface $entityManager
      * @param ImageRepository $imageRepository
      * @param ImageFactory $imageFactory
      */
     public function __construct(
-        ImageConfig $imageConfig,
+        ImageStorage $imageStorage,
         EntityManagerInterface $entityManager,
         ImageRepository $imageRepository,
         ImageFactory $imageFactory
     ) {
+        $this->imageStorage = $imageStorage;
         $this->entityManager = $entityManager;
         $this->imageRepository = $imageRepository;
         $this->imageFactory = $imageFactory;
@@ -41,10 +42,13 @@ class ImageFacade
     /**
      * @param ImageData $imageData
      * @return Image
+     * @throws Exception\ImageSaveException
      */
     public function create(ImageData $imageData): Image
     {
         $image = $this->imageFactory->create($imageData);
+
+        $this->imageStorage->save($imageData->file, (string) $image->getId());
 
         $this->entityManager->persist($image);
         $this->entityManager->flush();
@@ -88,8 +92,7 @@ class ImageFacade
     {
         $entity = $this->get($id);
 
-        @unlink($entity->getRealPath());
-
+        $this->imageStorage->remove($entity->getRealPath());
         $this->entityManager->remove($entity);
 
         $this->entityManager->flush();

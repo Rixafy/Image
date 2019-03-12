@@ -19,15 +19,15 @@ class ImageStorage
 
     /**
      * @param $file
-     * @param string $id
+     * @param string $fileName
      * @return string Real path of image
      * @throws ImageSaveException
      */
-    public function save($file, string $id): string
+    public function save($file, string $fileName): string
     {
         $extension = strtolower(pathinfo(basename($file["name"]),PATHINFO_EXTENSION));
-        $target = $this->imageConfig->getSavePath() . $id . '.' . $extension;
-        $moveResult = move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $this->imageConfig->getSavePath() . $id . '.' . $extension);
+        $target = $this->imageConfig->getSavePath() . $fileName . '.' . $extension;
+        $moveResult = move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $this->imageConfig->getSavePath() . $fileName . '.' . $extension);
 
         if (!$moveResult) {
             throw new ImageSaveException('Image could not be saved.');
