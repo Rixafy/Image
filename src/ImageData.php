@@ -32,6 +32,9 @@ class ImageData
     /** @var string */
     public $fileExtension;
 
+    /** @var string */
+    public $file;
+
     /** @var Language */
     public $language;
 }
