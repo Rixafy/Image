@@ -88,6 +88,8 @@ class ImageFacade
     {
         $entity = $this->get($id);
 
+        @unlink($entity->getRealPath());
+
         $this->entityManager->remove($entity);
 
         $this->entityManager->flush();
