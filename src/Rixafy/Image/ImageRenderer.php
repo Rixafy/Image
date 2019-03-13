@@ -31,7 +31,7 @@ class ImageRenderer
             }
         }
 
-        $tmpPath = $this->imageConfig->getCachePath() . '/' . $fileType . '/' . $width . 'x' . $height . '/' . (string) $image->getId();
+        $tmpPath = $this->imageConfig->getCachePath() . '/' . $fileType . '/' . $width . 'x' . $height . '/' . (string) $image->getId() . self::FORMATS[$fileType];
         try {
             $image = NetteImage::fromFile($tmpPath);
             $image->send($fileType);
