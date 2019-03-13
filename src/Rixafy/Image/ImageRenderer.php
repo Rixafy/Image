@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Rixafy\Image;
 
 use Nette\Utils\Image as NetteImage;
+use Nette\Utils\UnknownImageFileException;
 
 class ImageRenderer
 {
@@ -28,6 +29,13 @@ class ImageRenderer
             if ($fileType !== NetteImage::GIF && $this->imageConfig->isWebpOptimization()) {
                 $fileType = NetteImage::WEBP;
             }
+        }
+
+        try {
+            $image = NetteImage::fromFile($this->imageConfig->getCachePath() . '/' . $fileType . '/' . $width . 'x' . $height . '/' . (string) $image->getId());
+            $image->send($fileType, $fileType === NetteImage::PNG ? 1 : 100);
+        } catch (UnknownImageFileException $e) {
+            // render default image
         }
     }
 }
