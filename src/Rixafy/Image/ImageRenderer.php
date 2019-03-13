@@ -31,11 +31,14 @@ class ImageRenderer
             }
         }
 
+        $tmpPath = $this->imageConfig->getCachePath() . '/' . $fileType . '/' . $width . 'x' . $height . '/' . (string) $image->getId();
         try {
-            $image = NetteImage::fromFile($this->imageConfig->getCachePath() . '/' . $fileType . '/' . $width . 'x' . $height . '/' . (string) $image->getId());
-            $image->send($fileType, $fileType === NetteImage::PNG ? 1 : 100);
+            $image = NetteImage::fromFile($tmpPath);
+            $image->send($fileType);
+
         } catch (UnknownImageFileException $e) {
-            // render default image
+            $originalImage = NetteImage::fromFile($image->getRealPath());
+            $originalImage->save($tmpPath, NetteImage::PNG ? 1 : 100, $fileType);
         }
     }
 }
