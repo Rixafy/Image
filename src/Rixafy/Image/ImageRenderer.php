@@ -19,6 +19,14 @@ class ImageRenderer
         $this->imageConfig = $imageConfig;
     }
 
+    /**
+     * @param Image $image
+     * @param int $resizeType
+     * @param int|string $width Width in pixels or percentage
+     * @param int|string $height Height in pixels or percentage
+     * @param null $fileType
+     * @throws \Nette\Utils\ImageException
+     */
     public function render(Image $image, int $resizeType = NetteImage::EXACT, $width = null, $height = null, $fileType = null): void
     {
         $extensions = array_flip(self::FORMATS) + ['jpg' => NetteImage::JPEG];
