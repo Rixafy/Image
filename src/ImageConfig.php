@@ -14,15 +14,23 @@ class ImageConfig
     private $savePath;
 
     /**
+     * Path for caching image in different sizes or WebP type
+     *
+     * @var string
+     */
+    private $cachePath;
+
+    /**
      * Convert all PNG/JPEG to WebP format?
      *
      * @var bool
      */
     private $webpOptimization = true;
 
-    public function __construct($savePath, $webpOptimization = true)
+    public function __construct($savePath, $cachePath, $webpOptimization = true)
     {
         $this->savePath = $savePath;
+        $this->cachePath = $cachePath;
         $this->webpOptimization = $webpOptimization;
     }
 
@@ -32,6 +40,14 @@ class ImageConfig
     public function getSavePath(): string
     {
         return $this->savePath;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCachePath(): string
+    {
+        return $this->cachePath;
     }
 
     /**
