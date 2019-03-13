@@ -49,6 +49,7 @@ class ImageRenderer
                 $originalImage = NetteImage::fromFile($image->getRealPath());
                 $originalImage->save($tmpPath, NetteImage::PNG ? 1 : 100, $fileType);
                 $originalImage->send($fileType);
+
             } catch (UnknownImageFileException $e) {
                 $blank = NetteImage::fromBlank(320, 240, NetteImage::rgb(16, 16, 16));
                 $blank->save($tmpPath);
