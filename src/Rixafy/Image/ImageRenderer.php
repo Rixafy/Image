@@ -39,7 +39,9 @@ class ImageRenderer
             }
         }
 
-        $tmpPath = $this->imageConfig->getCachePath() . '/' . $fileType . '/' . $width . 'x' . $height . '/' . (string) $image->getId() . self::FORMATS[$fileType];
+        $percentageOrPixels = strpos($width, '%') !== false ? 'p' : 'x';
+        $tmpPath = $this->imageConfig->getCachePath() . '/' . $fileType . '/' . (int) $width . $percentageOrPixels . (int) $height . '/' . (string) $image->getId() . self::FORMATS[$fileType];
+
         try {
             $image = NetteImage::fromFile($tmpPath);
             $image->send($fileType);
@@ -47,11 +49,12 @@ class ImageRenderer
         } catch (UnknownImageFileException $e) {
             try {
                 $originalImage = NetteImage::fromFile($image->getRealPath());
+                $originalImage->resize($width, $height, $resizeType);
                 $originalImage->save($tmpPath, NetteImage::PNG ? 1 : 100, $fileType);
                 $originalImage->send($fileType);
 
             } catch (UnknownImageFileException $e) {
-                $blank = NetteImage::fromBlank(320, 240, NetteImage::rgb(16, 16, 16));
+                $blank = NetteImage::fromBlank(200, 200, NetteImage::rgb(16, 16, 16));
                 $blank->save($tmpPath);
             }
         }
