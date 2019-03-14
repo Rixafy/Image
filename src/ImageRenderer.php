@@ -41,8 +41,9 @@ class ImageRenderer
             }
         }
 
-        $percentageOrPixels = strpos($width, '%') !== false ? 'p' : 'x';
-        $tmpPath = $this->imageConfig->getCachePath() . '/' . $fileType . '/' . (int) $width . $percentageOrPixels . (int) $height . '/' . (string) $image->getId() . self::FORMATS[$fileType];
+        $widthType = strpos($width, '%') !== false ? 'pix' : 'pct';
+        $heightType = strpos($height, '%') !== false ? 'pix' : 'pct';
+        $tmpPath = $this->imageConfig->getCachePath() . '/' . $fileType . '/' . (int) $width . $widthType . '_' . (int) $height . $heightType . '/' . (string) $image->getId() . self::FORMATS[$fileType];
 
         try {
             $image = NetteImage::fromFile($tmpPath);
