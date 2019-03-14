@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Rixafy\Image;
 
 use Nette\Utils\Image as NetteImage;
+use Nette\Utils\ImageException;
 use Nette\Utils\UnknownImageFileException;
 
 class ImageRenderer
@@ -26,7 +27,7 @@ class ImageRenderer
      * @param int|string $width Width in pixels or percentage
      * @param int|string $height Height in pixels or percentage
      * @param null $fileType
-     * @throws \Nette\Utils\ImageException
+     * @throws ImageException
      */
     public function render(Image $image, int $resizeType = NetteImage::EXACT, $width = null, $height = null, $fileType = null): void
     {
@@ -47,16 +48,17 @@ class ImageRenderer
             $image = NetteImage::fromFile($tmpPath);
             $image->send($fileType);
 
-        } catch (UnknownImageFileException $e) {
+        } catch (UnknownImageFileException | ImageException $e) {
             try {
                 $originalImage = NetteImage::fromFile($image->getRealPath());
                 $originalImage->resize($width, $height, $resizeType);
                 $originalImage->save($tmpPath, NetteImage::PNG ? 1 : 100, $fileType);
                 $originalImage->send($fileType);
 
-            } catch (UnknownImageFileException $e) {
+            } catch (UnknownImageFileException | ImageException $e) {
                 $blank = NetteImage::fromBlank(200, 200, NetteImage::rgb(16, 16, 16));
                 $blank->save($tmpPath);
+                $blank->send();
             }
         }
     }

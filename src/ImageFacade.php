@@ -17,6 +17,9 @@ class ImageFacade
     /** @var ImageRepository */
     private $imageRepository;
 
+    /** @var ImageRenderer */
+    private $imageRenderer;
+
     /** @var ImageFactory */
     private $imageFactory;
 
@@ -25,17 +28,20 @@ class ImageFacade
      * @param ImageStorage $imageStorage
      * @param EntityManagerInterface $entityManager
      * @param ImageRepository $imageRepository
+     * @param ImageRenderer $imageRenderer
      * @param ImageFactory $imageFactory
      */
     public function __construct(
         ImageStorage $imageStorage,
         EntityManagerInterface $entityManager,
         ImageRepository $imageRepository,
+        ImageRenderer $imageRenderer,
         ImageFactory $imageFactory
     ) {
         $this->imageStorage = $imageStorage;
         $this->entityManager = $entityManager;
         $this->imageRepository = $imageRepository;
+        $this->imageRenderer = $imageRenderer;
         $this->imageFactory = $imageFactory;
     }
 
@@ -96,5 +102,15 @@ class ImageFacade
         $this->entityManager->remove($entity);
 
         $this->entityManager->flush();
+    }
+
+    /**
+     * @param string $id
+     * @throws Exception\ImageNotFoundException
+     * @throws \Nette\Utils\ImageException
+     */
+    public function render(string $id): void
+    {
+        $this->imageRenderer->render($this->get($id));
     }
 }
