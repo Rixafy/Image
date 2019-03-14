@@ -12,6 +12,7 @@ class ImageRenderer
     /** @var ImageConfig */
     private $imageConfig;
 
+    /** @var array */
     private const FORMATS = [NetteImage::JPEG => 'jpeg', NetteImage::PNG => 'png', NetteImage::GIF => 'gif', NetteImage::WEBP => 'webp'];
 
     public function __construct(ImageConfig $imageConfig)
