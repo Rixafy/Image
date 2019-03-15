@@ -40,7 +40,7 @@ class ImageRepository
         ]);
 
         if ($image === null) {
-            throw new ImageNotFoundException('Image with id ' . $urlName . ' not found.');
+            throw new ImageNotFoundException('Image with url ' . $urlName . ' not found.');
         }
 
         return $image;
