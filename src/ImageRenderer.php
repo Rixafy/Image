@@ -31,6 +31,33 @@ class ImageRenderer
      */
     public function render(Image $image, int $resizeType = NetteImage::EXACT, $width = null, $height = null, $fileType = null): void
     {
+        $this->getImage($image, $resizeType, $width, $height, $fileType)->send();
+    }
+
+    public function getImage(Image $image, int $resizeType = NetteImage::EXACT, $width = null, $height = null, $fileType = null): NetteImage
+    {
+        $tmpPath = $this->getImagePath($image, $resizeType, $width, $height, $fileType);
+
+        try {
+            return NetteImage::fromFile($tmpPath);
+
+        } catch (UnknownImageFileException $e) {
+            try {
+                $originalImage = NetteImage::fromFile($image->getRealPath());
+                $originalImage->resize($width, $height, $resizeType);
+                $originalImage->save($tmpPath, NetteImage::PNG ? 1 : 100, $fileType);
+                return $originalImage;
+
+            } catch (UnknownImageFileException | ImageException $e) {
+                $blank = NetteImage::fromBlank(200, 200, NetteImage::rgb(16, 16, 16));
+                $blank->save($tmpPath);
+                return $blank;
+            }
+        }
+    }
+
+    public function getImagePath(Image $image, int $resizeType = NetteImage::EXACT, $width = null, $height = null, $fileType = null): string
+    {
         $extensions = array_flip(self::FORMATS) + ['jpg' => NetteImage::JPEG];
 
         if ($fileType == null) {
@@ -43,24 +70,7 @@ class ImageRenderer
 
         $widthType = strpos($width, '%') !== false ? 'pix' : 'pct';
         $heightType = strpos($height, '%') !== false ? 'pix' : 'pct';
-        $tmpPath = $this->imageConfig->getCachePath() . '/' . $fileType . '/' . (int) $width . $widthType . '_' . (int) $height . $heightType . '/' . (string) $image->getId() . self::FORMATS[$fileType];
 
-        try {
-            $image = NetteImage::fromFile($tmpPath);
-            $image->send($fileType);
-
-        } catch (UnknownImageFileException | ImageException $e) {
-            try {
-                $originalImage = NetteImage::fromFile($image->getRealPath());
-                $originalImage->resize($width, $height, $resizeType);
-                $originalImage->save($tmpPath, NetteImage::PNG ? 1 : 100, $fileType);
-                $originalImage->send($fileType);
-
-            } catch (UnknownImageFileException | ImageException $e) {
-                $blank = NetteImage::fromBlank(200, 200, NetteImage::rgb(16, 16, 16));
-                $blank->save($tmpPath);
-                $blank->send();
-            }
-        }
+        return $this->imageConfig->getCachePath() . '/' . $fileType . '/' . (int) $width . $widthType . '_' . (int) $height . $heightType . '_' . $resizeType . '/' . (string) $image->getId() . self::FORMATS[$fileType];
     }
 }
