@@ -12,6 +12,6 @@
     "minimum-stability": "dev",
     "require": {
         "rixafy/doctrination": "dev-master",
-        "nette/utils": "^3.0@dev"
+        "nette/utils": "^2.4"
     }
 }
