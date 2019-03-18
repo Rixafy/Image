@@ -76,7 +76,7 @@ class Image extends EntityTranslator
      * @ORM\OneToMany(targetEntity="\Rixafy\Image\ImageTranslation", mappedBy="entity", cascade={"persist", "remove"})
      * @var ImageTranslation[]
      */
-    private $translations;
+    protected $translations;
 
     public function __construct(ImageData $imageData)
     {
