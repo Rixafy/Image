@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Rixafy\Image;
 
 use Doctrine\ORM\Mapping as ORM;
+use Rixafy\Doctrination\Annotation\Translatable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Rixafy\Doctrination\EntityTranslator;
 use Rixafy\DoctrineTraits\ActiveTrait;
