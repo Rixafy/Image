@@ -10,6 +10,11 @@
         }
     ],
     "minimum-stability": "dev",
+    "autoload": {
+        "psr-4": {
+            "Rixafy\\Image\\": "src"
+        }
+    },
     "require": {
         "rixafy/doctrination": "dev-master",
         "nette/utils": "^2.4"
