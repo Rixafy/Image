@@ -91,6 +91,26 @@ class Image extends EntityTranslator
     }
 
     /**
+     * @return ImageData
+     */
+    public function getData(): ImageData
+    {
+        $data = new ImageData();
+
+        $data->urlName = $this->url_name;
+        $data->description = $this->description;
+        $data->title = $this->title;
+        $data->alternativeText = $this->alternative_text;
+        $data->realPath = $this->real_path;
+        $data->width = $this->width;
+        $data->height = $this->height;
+        $data->fileExtension = $this->file_extension;
+        $data->language = $this->translationLanguage;
+
+        return $data;
+    }
+
+    /**
      * @param ImageData $imageData
      */
     public function edit(ImageData $imageData)
