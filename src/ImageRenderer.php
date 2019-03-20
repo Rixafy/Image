@@ -43,15 +43,16 @@ class ImageRenderer
 
         } catch (UnknownImageFileException $e) {
             try {
-                $originalImage = NetteImage::fromFile($image->getRealPath());
-                $originalImage->resize($width, $height, $resizeType);
-                $originalImage->save($tmpPath, NetteImage::PNG ? 1 : 100, $fileType);
-                return $originalImage;
+                $renderImage = NetteImage::fromFile($image->getRealPath());
+                $renderImage->resize($width, $height, $resizeType);
+                $renderImage->save($tmpPath, NetteImage::PNG ? 1 : 100, $fileType);
 
             } catch (UnknownImageFileException | ImageException $e) {
-                $blank = NetteImage::fromBlank(200, 200, NetteImage::rgb(16, 16, 16));
-                $blank->save($tmpPath);
-                return $blank;
+                $renderImage = NetteImage::fromBlank(200, 200, NetteImage::rgb(16, 16, 16));
+                $renderImage->save($tmpPath);
+
+            } finally {
+                return $renderImage;
             }
         }
     }
