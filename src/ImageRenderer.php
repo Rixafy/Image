@@ -13,12 +13,18 @@ class ImageRenderer
     /** @var ImageConfig */
     private $imageConfig;
 
+    /** @var ImageStorage */
+    private $imageStorage;
+
     /** @var array */
     private const FORMATS = [NetteImage::JPEG => 'jpeg', NetteImage::PNG => 'png', NetteImage::GIF => 'gif', NetteImage::WEBP => 'webp'];
 
-    public function __construct(ImageConfig $imageConfig)
-    {
+    public function __construct(
+        ImageConfig $imageConfig,
+        ImageStorage $imageStorage
+    ) {
         $this->imageConfig = $imageConfig;
+        $this->imageStorage = $imageStorage;
     }
 
     /**
@@ -31,33 +37,25 @@ class ImageRenderer
      */
     public function render(Image $image, int $resizeType = NetteImage::EXACT, $width = null, $height = null, $fileType = null): void
     {
-        $this->getImage($image, $resizeType, $width, $height, $fileType)->send();
-    }
-
-    public function getImage(Image $image, int $resizeType = NetteImage::EXACT, $width = null, $height = null, $fileType = null): NetteImage
-    {
-        $tmpPath = $this->getImagePath($image, $resizeType, $width, $height, $fileType);
+        $tmpPath = $this->createTempPath($image, $resizeType, $width, $height, $fileType);
 
         try {
-            return NetteImage::fromFile($tmpPath);
+            NetteImage::fromFile($tmpPath)->send();
 
         } catch (UnknownImageFileException $e) {
-            try {
-                $renderImage = NetteImage::fromFile($image->getRealPath());
-                $renderImage->resize($width, $height, $resizeType);
-                $renderImage->save($tmpPath, NetteImage::PNG ? 1 : 100, $fileType);
-
-            } catch (UnknownImageFileException | ImageException $e) {
-                $renderImage = NetteImage::fromBlank(200, 200, NetteImage::rgb(16, 16, 16));
-                $renderImage->save($tmpPath);
-
-            } finally {
-                return $renderImage;
-            }
+            $this->imageStorage->saveTemp($tmpPath, $image, $resizeType, $width, $height, $fileType)->send();
         }
     }
 
-    public function getImagePath(Image $image, int $resizeType = NetteImage::EXACT, $width = null, $height = null, $fileType = null): string
+    /**
+     * @param Image $image
+     * @param int $resizeType
+     * @param null $width
+     * @param null $height
+     * @param null $fileType
+     * @return string
+     */
+    public function createTempPath(Image $image, int $resizeType = NetteImage::EXACT, $width = null, $height = null, $fileType = null): string
     {
         $extensions = array_flip(self::FORMATS) + ['jpg' => NetteImage::JPEG];
 

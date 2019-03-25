@@ -4,8 +4,11 @@ declare(strict_types=1);
 
 namespace Rixafy\Image;
 
+use Nette\Utils\ImageException;
+use Nette\Utils\UnknownImageFileException;
 use Rixafy\Image\Exception\ImageNotFoundException;
 use Rixafy\Image\Exception\ImageSaveException;
+use Nette\Utils\Image as NetteImage;
 
 class ImageStorage
 {
@@ -34,6 +37,32 @@ class ImageStorage
         }
 
         return $target;
+    }
+
+    /**
+     * @param string $tmpPath
+     * @param Image $image
+     * @param int $resizeType
+     * @param null $width
+     * @param null $height
+     * @param null $fileType
+     * @return NetteImage
+     * @throws ImageException
+     */
+    public function saveTemp(string $tmpPath, Image $image, int $resizeType = NetteImage::EXACT, $width = null, $height = null, $fileType = null): NetteImage
+    {
+        try {
+            $renderImage = NetteImage::fromFile($image->getRealPath());
+            $renderImage->resize($width, $height, $resizeType);
+            $renderImage->save($tmpPath, NetteImage::PNG ? 1 : 100, $fileType);
+
+        } catch (UnknownImageFileException | ImageException $e) {
+            $renderImage = NetteImage::fromBlank(200, 200, NetteImage::rgb(16, 16, 16));
+            $renderImage->save($tmpPath);
+
+        } finally {
+            return $renderImage;
+        }
     }
 
     /**
