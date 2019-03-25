@@ -37,6 +37,11 @@ class ImageGroup
     public function __construct(ImageGroupData $imageGroupData)
     {
         $this->images = new ArrayCollection();
+        $this->edit($imageGroupData);
+    }
+
+    public function edit(ImageGroupData $imageGroupData)
+    {
         $this->name = $imageGroupData->name;
     }
 
