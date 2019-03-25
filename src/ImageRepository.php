@@ -53,21 +53,16 @@ class ImageRepository
      */
     public function get(string $id): Image
     {
-        $image = $this->find($id);
+        /** @var Image $image */
+        $image = $this->getRepository()->findOneBy([
+            'id' => Uuid::fromString($id)
+        ]);
 
         if ($image === null) {
             throw new ImageNotFoundException('Image with id ' . $id . ' not found.');
         }
 
         return $image;
-    }
-
-    public function find(string $id): ?Image
-    {
-        return $this->getQueryBuilderForAll()
-            ->andWhere('i.id = :id')->setParameter('id', Uuid::fromString($id))
-            ->getQuery()
-            ->getOneOrNullResult();
     }
 
     public function getQueryBuilderForAll(): QueryBuilder
