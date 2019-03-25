@@ -30,11 +30,12 @@ class ImageRepository
 
     /**
      * @param string $urlName
-     * @return Image|object
+     * @return Image
      * @throws ImageNotFoundException
      */
     public function getByUrlName(string $urlName): Image
     {
+        /** @var Image $image */
         $image = $this->getRepository()->findOneBy([
             'url_name' => $urlName
         ]);
