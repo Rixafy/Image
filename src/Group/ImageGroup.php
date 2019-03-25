@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Rixafy\Image\ImageGroup;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Rixafy\DoctrineTraits\ActiveTrait;
 use Rixafy\DoctrineTraits\DateTimeTrait;
@@ -35,6 +36,11 @@ class ImageGroup
      */
     private $images;
 
+    public function __construct(ImageGroupData $imageGroupData)
+    {
+        $this->images = new ArrayCollection();
+        $this->name = $imageGroupData->name;
+    }
 
     /**
      * @return string
@@ -42,5 +48,13 @@ class ImageGroup
     public function getName(): string
     {
         return $this->name;
+    }
+
+    /**
+     * @return Image[]
+     */
+    public function getImages(): array
+    {
+        return $this->images;
     }
 }
