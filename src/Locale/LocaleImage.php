@@ -12,6 +12,7 @@ use Rixafy\DoctrineTraits\ActiveTrait;
 use Rixafy\DoctrineTraits\DateTimeTrait;
 use Rixafy\DoctrineTraits\UniqueTrait;
 use Rixafy\Image\Image;
+use Rixafy\Image\ImageData;
 use Rixafy\Image\ImagePropertiesTrait;
 
 /**
@@ -58,27 +59,26 @@ class LocaleImage extends EntityTranslator
      */
     protected $translations;
 
-    public function __construct(LocaleImageData $localeImageData)
+    public function __construct(ImageData $imageData)
     {
         $this->translations = new ArrayCollection();
-
-        $this->edit($localeImageData);
+        $this->edit($imageData);
     }
 
     /**
-     * @param LocaleImageData $imageData
+     * @param ImageData $imageData
      */
-    public function edit(LocaleImageData $imageData)
+    public function edit(ImageData $imageData)
     {
         $this->editTranslation($imageData);
     }
 
     /**
-     * @return LocaleImageData
+     * @return ImageData
      */
-    public function getData(): LocaleImageData
+    public function getData(): ImageData
     {
-        $data = new LocaleImageData();
+        $data = new ImageData();
 
         $data->urlName = $this->url_name;
         $data->description = $this->description;
