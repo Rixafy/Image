@@ -18,5 +18,10 @@
     "require": {
         "rixafy/doctrination": "dev-master",
         "nette/utils": "^2.4"
+    },
+    "config": {
+        "platform": {
+            "php": "7.1"
+        }
     }
 }
