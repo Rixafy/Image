@@ -6,12 +6,15 @@ namespace Rixafy\Image;
 
 use Nette\Utils\ImageException;
 use Nette\Utils\UnknownImageFileException;
+use Ramsey\Uuid\UuidInterface;
 use Rixafy\Image\Exception\ImageNotFoundException;
 use Rixafy\Image\Exception\ImageSaveException;
 use Nette\Utils\Image as NetteImage;
 
 class ImageStorage
 {
+    private const FORMATS = [NetteImage::JPEG => 'jpeg', NetteImage::PNG => 'png', NetteImage::GIF => 'gif', NetteImage::WEBP => 'webp'];
+
     /** @var ImageConfig */
     private $imageConfig;
 
@@ -40,25 +43,25 @@ class ImageStorage
     }
 
     /**
-     * @param string $tmpPath
-     * @param Image $image
+     * @param string $tempPath
+     * @param ImageData $imageData
      * @param int $resizeType
-     * @param null $width
-     * @param null $height
-     * @param null $fileType
      * @return NetteImage
      * @throws ImageException
      */
-    public function saveTemp(string $tmpPath, Image $image, int $resizeType = NetteImage::EXACT, $width = null, $height = null, $fileType = null): NetteImage
+    public function saveTemp(string $tempPath, ImageData $imageData, $resizeType = NetteImage::EXACT): NetteImage
     {
+        $extensions = array_flip(self::FORMATS) + ['jpg' => NetteImage::JPEG];
+        $format = isset($extensions[$imageData->fileFormat]) ? $extensions[$imageData->fileFormat] : self::FORMATS['webp'];
+
         try {
-            $renderImage = NetteImage::fromFile($image->getRealPath());
-            $renderImage->resize($width, $height, $resizeType);
-            $renderImage->save($tmpPath, NetteImage::PNG ? 1 : 100, $fileType);
+            $renderImage = NetteImage::fromFile($imageData->realPath);
+            $renderImage->resize($imageData->width, $imageData->height, $resizeType);
+            $renderImage->save($tempPath, NetteImage::PNG ? 1 : 100, $format);
 
         } catch (UnknownImageFileException | ImageException $e) {
             $renderImage = NetteImage::fromBlank(200, 200, NetteImage::rgb(16, 16, 16));
-            $renderImage->save($tmpPath);
+            $renderImage->save($tempPath);
 
         } finally {
             return $renderImage;

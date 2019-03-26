@@ -7,6 +7,7 @@ namespace Rixafy\Image;
 use Nette\Utils\Image as NetteImage;
 use Nette\Utils\ImageException;
 use Nette\Utils\UnknownImageFileException;
+use Ramsey\Uuid\UuidInterface;
 
 class ImageRenderer
 {
@@ -15,9 +16,6 @@ class ImageRenderer
 
     /** @var ImageStorage */
     private $imageStorage;
-
-    /** @var array */
-    private const FORMATS = [NetteImage::JPEG => 'jpeg', NetteImage::PNG => 'png', NetteImage::GIF => 'gif', NetteImage::WEBP => 'webp'];
 
     public function __construct(
         ImageConfig $imageConfig,
@@ -28,48 +26,31 @@ class ImageRenderer
     }
 
     /**
-     * @param Image $image
+     * @param UuidInterface $uuid
+     * @param ImageData $imageData
      * @param int $resizeType
-     * @param int|string $width Width in pixels or percentage
-     * @param int|string $height Height in pixels or percentage
-     * @param null $fileType
      * @throws ImageException
      */
-    public function render(Image $image, int $resizeType = NetteImage::EXACT, $width = null, $height = null, $fileType = null): void
+    public function render(UuidInterface $uuid, ImageData $imageData, $resizeType = NetteImage::EXACT): void
     {
-        $tmpPath = $this->createTempPath($image, $resizeType, $width, $height, $fileType);
+        $tempPath = $this->createTempPath($uuid, $imageData, $resizeType);
 
         try {
-            NetteImage::fromFile($tmpPath)->send();
+            NetteImage::fromFile($tempPath)->send();
 
         } catch (UnknownImageFileException $e) {
-            $this->imageStorage->saveTemp($tmpPath, $image, $resizeType, $width, $height, $fileType)->send();
+            $this->imageStorage->saveTemp($tempPath, $imageData, $resizeType)->send();
         }
     }
 
     /**
-     * @param Image $image
+     * @param UuidInterface $uuid
+     * @param ImageData $imageData
      * @param int $resizeType
-     * @param null $width
-     * @param null $height
-     * @param null $fileType
      * @return string
      */
-    public function createTempPath(Image $image, int $resizeType = NetteImage::EXACT, $width = null, $height = null, $fileType = null): string
+    public function createTempPath(UuidInterface $uuid, ImageData $imageData, $resizeType = NetteImage::EXACT): string
     {
-        $extensions = array_flip(self::FORMATS) + ['jpg' => NetteImage::JPEG];
-
-        if ($fileType == null) {
-            $fileType = $extensions[$image->getFileFormat()];
-
-            if ($fileType !== NetteImage::GIF && $this->imageConfig->isWebpOptimization()) {
-                $fileType = NetteImage::WEBP;
-            }
-        }
-
-        $widthType = strpos($width, '%') !== false ? 'pix' : 'pct';
-        $heightType = strpos($height, '%') !== false ? 'pix' : 'pct';
-
-        return $this->imageConfig->getCachePath() . '/' . $fileType . '/' . (int) $width . $widthType . '_' . (int) $height . $heightType . '_' . $resizeType . '/' . (string) $image->getId() . self::FORMATS[$fileType];
+        return $this->imageConfig->getCachePath() . '/' . $imageData->fileFormat . '/' . (int) $imageData->width. '_' . (int) $imageData->height . '_' . $resizeType . '/' . (string) $uuid . '.' . $imageData->fileFormat;
     }
 }
