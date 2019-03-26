@@ -103,14 +103,4 @@ class ImageFacade
 
         $this->entityManager->flush();
     }
-
-    /**
-     * @param string $id
-     * @throws Exception\ImageNotFoundException
-     * @throws \Nette\Utils\ImageException
-     */
-    public function render(string $id): void
-    {
-        $this->imageRenderer->render($this->get($id));
-    }
 }
