@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Rixafy\Image\LocaleImage;
 
 use Doctrine\ORM\EntityManagerInterface;
+use Rixafy\Image\ImageData;
 use Rixafy\Image\ImageRenderer;
 use Rixafy\Image\ImageStorage;
 use Rixafy\Image\LocaleImage\Exception\LocaleImageNotFoundException;
@@ -49,15 +50,15 @@ class LocaleImageFacade
     }
 
     /**
-     * @param LocaleImageData $localeImageData
+     * @param ImageData $imageData
      * @return LocaleImage
      * @throws \Rixafy\Image\Exception\ImageSaveException
      */
-    public function create(LocaleImageData $localeImageData): LocaleImage
+    public function create(ImageData $imageData): LocaleImage
     {
-        $localeImage = $this->localeImageFactory->create($localeImageData);
+        $localeImage = $this->localeImageFactory->create($imageData);
 
-        $this->imageStorage->save($localeImageData->file, (string) $localeImage->getId());
+        $this->imageStorage->save($imageData->file, (string) $localeImage->getId());
 
         $this->entityManager->persist($localeImage);
         $this->entityManager->flush();
@@ -67,14 +68,14 @@ class LocaleImageFacade
 
     /**
      * @param string $id
-     * @param LocaleImageData $localeImageData
+     * @param ImageData $imageData
      * @return LocaleImage
      * @throws Exception\LocaleImageNotFoundException
      */
-    public function edit(string $id, LocaleImageData $localeImageData): LocaleImage
+    public function edit(string $id, ImageData $imageData): LocaleImage
     {
         $localeImage = $this->localeImageRepository->get($id);
-        $localeImage->edit($localeImageData);
+        $localeImage->edit($imageData);
 
         $this->entityManager->flush();
 
