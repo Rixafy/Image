@@ -8,7 +8,6 @@ use Doctrine\ORM\Mapping as ORM;
 use Rixafy\Doctrination\Annotation\Translatable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Rixafy\Doctrination\EntityTranslator;
-use Rixafy\DoctrineTraits\ActiveTrait;
 use Rixafy\DoctrineTraits\DateTimeTrait;
 use Rixafy\DoctrineTraits\UniqueTrait;
 
@@ -20,7 +19,6 @@ use Rixafy\DoctrineTraits\UniqueTrait;
 class Image extends EntityTranslator
 {
     use UniqueTrait;
-    use ActiveTrait;
     use DateTimeTrait;
     use ImagePropertiesTrait;
     use ImageMetaTrait;
@@ -38,7 +36,7 @@ class Image extends EntityTranslator
         $this->real_path = $imageData->realPath;
         $this->width = $imageData->width;
         $this->height = $imageData->height;
-        $this->file_extension = $imageData->fileExtension;
+        $this->file_format = $imageData->fileFormat;
         $this->translations = new ArrayCollection();
 
         $this->edit($imageData);
@@ -66,7 +64,7 @@ class Image extends EntityTranslator
         $data->realPath = $this->real_path;
         $data->width = $this->width;
         $data->height = $this->height;
-        $data->fileExtension = $this->file_extension;
+        $data->fileFormat = $this->file_format;
         $data->language = $this->translationLanguage;
 
         return $data;

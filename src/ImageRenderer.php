@@ -60,7 +60,7 @@ class ImageRenderer
         $extensions = array_flip(self::FORMATS) + ['jpg' => NetteImage::JPEG];
 
         if ($fileType == null) {
-            $fileType = $extensions[$image->getFileExtension()];
+            $fileType = $extensions[$image->getFileFormat()];
 
             if ($fileType !== NetteImage::GIF && $this->imageConfig->isWebpOptimization()) {
                 $fileType = NetteImage::WEBP;

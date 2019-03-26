@@ -30,7 +30,7 @@ class ImageData
     public $realPath;
 
     /** @var string */
-    public $fileExtension;
+    public $fileFormat;
 
     /** @var string */
     public $file;

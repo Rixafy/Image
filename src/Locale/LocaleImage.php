@@ -11,7 +11,6 @@ use Rixafy\Doctrination\EntityTranslator;
 use Rixafy\DoctrineTraits\ActiveTrait;
 use Rixafy\DoctrineTraits\DateTimeTrait;
 use Rixafy\DoctrineTraits\UniqueTrait;
-use Rixafy\Image\Image;
 use Rixafy\Image\ImageData;
 use Rixafy\Image\ImagePropertiesTrait;
 
@@ -87,7 +86,7 @@ class LocaleImage extends EntityTranslator
         $data->realPath = $this->real_path;
         $data->width = $this->width;
         $data->height = $this->height;
-        $data->fileExtension = $this->file_extension;
+        $data->fileFormat = $this->file_format;
         $data->language = $this->translationLanguage;
 
         return $data;

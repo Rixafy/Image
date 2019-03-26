@@ -28,7 +28,7 @@ trait ImagePropertiesTrait
      * @ORM\Column(type="string", length=5)
      * @var string
      */
-    private $file_extension;
+    private $file_format;
 
     /**
      * @return string
@@ -57,8 +57,8 @@ trait ImagePropertiesTrait
     /**
      * @return string
      */
-    public function getFileExtension(): string
+    public function getFileFormat(): string
     {
-        return $this->file_extension;
+        return $this->file_format;
     }
 }
