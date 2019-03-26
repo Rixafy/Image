@@ -22,54 +22,8 @@ class Image extends EntityTranslator
     use UniqueTrait;
     use ActiveTrait;
     use DateTimeTrait;
-
-    /**
-     * @Translatable
-     * @var string
-     */
-    protected $url_name;
-
-    /**
-     * @Translatable
-     * @var string
-     */
-    protected $description;
-
-    /**
-     * @Translatable
-     * @var string
-     */
-    protected $title;
-
-    /**
-     * @Translatable
-     * @var string
-     */
-    protected $alternative_text;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     * @var string
-     */
-    private $real_path;
-
-    /**
-     * @ORM\Column(type="smallint")
-     * @var int
-     */
-    private $width;
-
-    /**
-     * @ORM\Column(type="smallint")
-     * @var int
-     */
-    private $height;
-
-    /**
-     * @ORM\Column(type="string", length=5)
-     * @var string
-     */
-    private $file_extension;
+    use ImagePropertiesTrait;
+    use ImageMetaTrait;
 
     /**
      * One Image has Many Translations
@@ -91,6 +45,14 @@ class Image extends EntityTranslator
     }
 
     /**
+     * @param ImageData $imageData
+     */
+    public function edit(ImageData $imageData)
+    {
+        $this->editTranslation($imageData);
+    }
+
+    /**
      * @return ImageData
      */
     public function getData(): ImageData
@@ -108,78 +70,6 @@ class Image extends EntityTranslator
         $data->language = $this->translationLanguage;
 
         return $data;
-    }
-
-    /**
-     * @param ImageData $imageData
-     */
-    public function edit(ImageData $imageData)
-    {
-        $this->editTranslation($imageData);
-    }
-
-    /**
-     * @return string
-     */
-    public function getUrlName(): string
-    {
-        return $this->url_name;
-    }
-
-    /**
-     * @return string
-     */
-    public function getDescription(): string
-    {
-        return $this->description;
-    }
-
-    /**
-     * @return string
-     */
-    public function getTitle(): string
-    {
-        return $this->title;
-    }
-
-    /**
-     * @return string
-     */
-    public function getAlternativeText(): string
-    {
-        return $this->alternative_text;
-    }
-
-    /**
-     * @return string
-     */
-    public function getRealPath(): string
-    {
-        return $this->real_path;
-    }
-
-    /**
-     * @return int
-     */
-    public function getWidth(): int
-    {
-        return $this->width;
-    }
-
-    /**
-     * @return int
-     */
-    public function getHeight(): int
-    {
-        return $this->height;
-    }
-
-    /**
-     * @return string
-     */
-    public function getFileExtension(): string
-    {
-        return $this->file_extension;
     }
 
     /**

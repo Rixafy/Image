@@ -7,6 +7,7 @@ namespace Rixafy\Image\LocaleImage;
 use Doctrine\ORM\Mapping as ORM;
 use Rixafy\Doctrination\Language\Language;
 use Rixafy\DoctrineTraits\UniqueTrait;
+use Rixafy\Image\ImageMetaTrait;
 
 /**
  * @ORM\Entity
@@ -17,30 +18,7 @@ use Rixafy\DoctrineTraits\UniqueTrait;
 class LocaleImageTranslation
 {
     use UniqueTrait;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     * @var string
-     */
-    private $url_name;
-
-    /**
-     * @ORM\Column(type="string", length=1023)
-     * @var string
-     */
-    private $description;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     * @var string
-     */
-    private $title;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     * @var string
-     */
-    private $alternative_text;
+    use ImageMetaTrait;
 
     /**
      * Many Translations have One Language. Unidirectional.
@@ -72,37 +50,5 @@ class LocaleImageTranslation
         $this->description = $imageData->description;
         $this->title = $imageData->title;
         $this->alternative_text = $imageData->alternativeText;
-    }
-
-    /**
-     * @return string
-     */
-    public function getUrlName(): string
-    {
-        return $this->url_name;
-    }
-
-    /**
-     * @return string
-     */
-    public function getTitle(): string
-    {
-        return $this->title;
-    }
-
-    /**
-     * @return string
-     */
-    public function getDescription(): string
-    {
-        return $this->description;
-    }
-
-    /**
-     * @return string
-     */
-    public function getAlternativeText(): string
-    {
-        return $this->alternative_text;
     }
 }

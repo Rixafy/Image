@@ -4,14 +4,15 @@ declare(strict_types=1);
 
 namespace Rixafy\Image\LocaleImage;
 
-use Doctrine\Common\Collections\Selectable;
 use Doctrine\ORM\Mapping as ORM;
+use Rixafy\Doctrination\Annotation\Translatable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Rixafy\Doctrination\EntityTranslator;
 use Rixafy\DoctrineTraits\ActiveTrait;
 use Rixafy\DoctrineTraits\DateTimeTrait;
 use Rixafy\DoctrineTraits\UniqueTrait;
 use Rixafy\Image\Image;
+use Rixafy\Image\ImagePropertiesTrait;
 
 /**
  * @ORM\Entity
@@ -23,38 +24,31 @@ class LocaleImage extends EntityTranslator
     use UniqueTrait;
     use ActiveTrait;
     use DateTimeTrait;
+    use ImagePropertiesTrait;
 
     /**
      * @Translatable
      * @var string
      */
-    protected $url_name;
+    private $url_name;
 
     /**
      * @Translatable
      * @var string
      */
-    protected $description;
+    private $description;
 
     /**
      * @Translatable
      * @var string
      */
-    protected $title;
+    private $title;
 
     /**
      * @Translatable
      * @var string
      */
-    protected $alternative_text;
-
-    /**
-     * One LocaleImage has One Image
-     *
-     * @ORM\ManyToOne(targetEntity="\Rixafy\Image\Image")
-     * @var Image
-     */
-    private $image;
+    private $alternative_text;
 
     /**
      * One LocaleImage has Many Translations
@@ -64,10 +58,9 @@ class LocaleImage extends EntityTranslator
      */
     protected $translations;
 
-    public function __construct(LocaleImageData $localeImageData, Image $image)
+    public function __construct(LocaleImageData $localeImageData)
     {
         $this->translations = new ArrayCollection();
-        $this->image = $image;
 
         $this->edit($localeImageData);
     }
@@ -91,18 +84,45 @@ class LocaleImage extends EntityTranslator
         $data->description = $this->description;
         $data->title = $this->title;
         $data->alternativeText = $this->alternative_text;
-        $data->realPath = $this->image->getRealPath();
-        $data->width = $this->image->getWidth();
-        $data->height = $this->image->getHeight();
-        $data->fileExtension = $this->image->getFileExtension();
+        $data->realPath = $this->real_path;
+        $data->width = $this->width;
+        $data->height = $this->height;
+        $data->fileExtension = $this->file_extension;
         $data->language = $this->translationLanguage;
 
         return $data;
     }
 
-    public function getImage(): Image
+    /**
+     * @return string
+     */
+    public function getUrlName(): string
     {
-        return $this->image;
+        return $this->url_name;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDescription(): string
+    {
+        return $this->description;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTitle(): string
+    {
+        return $this->title;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAlternativeText(): string
+    {
+        return $this->alternative_text;
     }
 
     public function getTranslations()
