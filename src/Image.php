@@ -33,6 +33,7 @@ class Image extends EntityTranslator
 
     public function __construct(ImageData $imageData)
     {
+        $this->image_group = $imageData->imageGroup;
         $this->real_path = $imageData->realPath;
         $this->width = $imageData->width;
         $this->height = $imageData->height;

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Rixafy\Image;
 
 use Rixafy\Doctrination\Language\Language;
+use Rixafy\Image\ImageGroup\ImageGroup;
 
 class ImageData
 {
@@ -34,6 +35,9 @@ class ImageData
 
     /** @var string */
     public $file;
+
+    /** @var ImageGroup */
+    public $imageGroup;
 
     /** @var Language */
     public $language;

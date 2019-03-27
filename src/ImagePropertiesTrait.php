@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Rixafy\Image;
 
+use Rixafy\Image\ImageGroup\ImageGroup;
+
 trait ImagePropertiesTrait
 {
     /**
@@ -29,6 +31,14 @@ trait ImagePropertiesTrait
      * @var string
      */
     private $file_format;
+
+    /**
+     * Many Images have One ImageGroup
+     *
+     * @ORM\ManyToOne(targetEntity="\Rixafy\Image\ImageGroup")
+     * @var ImageGroup
+     */
+    private $image_group;
 
     /**
      * @return string
@@ -60,5 +70,13 @@ trait ImagePropertiesTrait
     public function getFileFormat(): string
     {
         return $this->file_format;
+    }
+
+    /**
+     * @return ImageGroup
+     */
+    public function getImageGroup(): ImageGroup
+    {
+        return $this->image_group;
     }
 }
