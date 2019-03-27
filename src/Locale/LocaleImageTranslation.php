@@ -7,6 +7,7 @@ namespace Rixafy\Image\LocaleImage;
 use Doctrine\ORM\Mapping as ORM;
 use Rixafy\Doctrination\Language\Language;
 use Rixafy\DoctrineTraits\UniqueTrait;
+use Rixafy\Image\ImageData;
 use Rixafy\Image\ImageMetaTrait;
 
 /**
@@ -38,11 +39,11 @@ class LocaleImageTranslation
 
     /**
      * ImageTranslation constructor.
-     * @param LocaleImageData $imageData
+     * @param ImageData $imageData
      * @param \Rixafy\Doctrination\Language\Language $language
      * @param LocaleImage $entity
      */
-    public function __construct(LocaleImageData $imageData, Language $language, LocaleImage $entity)
+    public function __construct(ImageData $imageData, Language $language, LocaleImage $entity)
     {
         $this->language = $language;
         $this->entity = $entity;
