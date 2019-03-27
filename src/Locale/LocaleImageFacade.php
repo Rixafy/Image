@@ -113,6 +113,8 @@ class LocaleImageFacade
 
 
     /**
+     * Returns image response to browser, image must be firstly generated
+     *
      * @param UuidInterface $id
      * @param int|null $width
      * @param int|null $height
@@ -129,5 +131,27 @@ class LocaleImageFacade
         $imageData->height = $width == null ? $entity->getHeight() : $height;
 
         $this->imageRenderer->render($id, $imageData, $resizeType);
+    }
+
+    /**
+     * Creates a temporary image file, render is not possible without existing file, this should happen in a template
+     *
+     * @param UuidInterface $id
+     * @param int|null $width
+     * @param int|null $height
+     * @param int $resizeType
+     * @return string
+     * @throws \Nette\Utils\ImageException
+     * @throws LocaleImageNotFoundException
+     */
+    public function generate(UuidInterface $id, int $width = null, int $height = null, $resizeType = NetteImage::EXACT): string
+    {
+        $entity = $this->get($id);
+
+        $imageData = $entity->getData();
+        $imageData->width = $width == null ? $entity->getWidth() : $width;
+        $imageData->height = $width == null ? $entity->getHeight() : $height;
+
+        return $this->imageRenderer->generate($id, $imageData, $resizeType);
     }
 }

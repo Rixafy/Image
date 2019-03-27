@@ -31,16 +31,29 @@ class ImageRenderer
      * @param int $resizeType
      * @throws ImageException
      */
-    public function render(UuidInterface $uuid, ImageData $imageData, $resizeType = NetteImage::EXACT): void
+    public function render(UuidInterface $uuid, ImageData $imageData, int $resizeType = NetteImage::EXACT): void
     {
         $tempPath = $this->createTempPath($uuid, $imageData, $resizeType);
 
-        try {
-            NetteImage::fromFile($tempPath)->send();
+        NetteImage::fromFile($tempPath)->send();
+    }
 
-        } catch (UnknownImageFileException $e) {
-            $this->imageStorage->saveTemp($tempPath, $imageData, $resizeType)->send();
+    /**
+     * @param UuidInterface $uuid
+     * @param ImageData $imageData
+     * @param int $resizeType
+     * @return string Save path
+     * @throws ImageException
+     */
+    public function generate(UuidInterface $uuid, ImageData $imageData, int $resizeType = NetteImage::EXACT): string
+    {
+        $tempPath = $this->createTempPath($uuid, $imageData, $resizeType);
+
+        if (file_exists($tempPath) === false) {
+            $this->imageStorage->saveTemp($tempPath, $imageData, $resizeType);
         }
+
+        return $tempPath;
     }
 
     /**
