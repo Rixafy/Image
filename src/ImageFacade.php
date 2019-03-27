@@ -6,6 +6,7 @@ namespace Rixafy\Image;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Ramsey\Uuid\UuidInterface;
+use Nette\Utils\Image as NetteImage;
 
 class ImageFacade
 {
@@ -103,5 +104,24 @@ class ImageFacade
         $this->entityManager->remove($entity);
 
         $this->entityManager->flush();
+    }
+
+    /**
+     * @param UuidInterface $id
+     * @param int|null $width
+     * @param int|null $height
+     * @param int $resizeType
+     * @throws Exception\ImageNotFoundException
+     * @throws \Nette\Utils\ImageException
+     */
+    public function render(UuidInterface $id, int $width = null, int $height = null, $resizeType = NetteImage::EXACT): void
+    {
+        $entity = $this->get($id);
+
+        $imageData = $entity->getData();
+        $imageData->width = $width == null ? $entity->getWidth() : $width;
+        $imageData->height = $width == null ? $entity->getHeight() : $height;
+
+        $this->imageRenderer->render($id, $imageData, $resizeType);
     }
 }

@@ -10,6 +10,7 @@ use Rixafy\Image\ImageData;
 use Rixafy\Image\ImageRenderer;
 use Rixafy\Image\ImageStorage;
 use Rixafy\Image\LocaleImage\Exception\LocaleImageNotFoundException;
+use Nette\Utils\Image as NetteImage;
 
 class LocaleImageFacade
 {
@@ -23,7 +24,7 @@ class LocaleImageFacade
     private $localeImageRepository;
 
     /** @var ImageRenderer */
-    private $localeImageRenderer;
+    private $imageRenderer;
 
     /** @var LocaleImageFactory */
     private $localeImageFactory;
@@ -46,7 +47,7 @@ class LocaleImageFacade
         $this->imageStorage = $imageStorage;
         $this->entityManager = $entityManager;
         $this->localeImageRepository = $localeImageRepository;
-        $this->localeImageRenderer = $imageRenderer;
+        $this->imageRenderer = $imageRenderer;
         $this->localeImageFactory = $localeImageFactory;
     }
 
@@ -108,5 +109,25 @@ class LocaleImageFacade
         $this->entityManager->remove($entity);
 
         $this->entityManager->flush();
+    }
+
+
+    /**
+     * @param UuidInterface $id
+     * @param int|null $width
+     * @param int|null $height
+     * @param int $resizeType
+     * @throws Exception\LocaleImageNotFoundException
+     * @throws \Nette\Utils\ImageException
+     */
+    public function render(UuidInterface $id, int $width = null, int $height = null, $resizeType = NetteImage::EXACT): void
+    {
+        $entity = $this->get($id);
+
+        $imageData = $entity->getData();
+        $imageData->width = $width == null ? $entity->getWidth() : $width;
+        $imageData->height = $width == null ? $entity->getHeight() : $height;
+
+        $this->imageRenderer->render($id, $imageData, $resizeType);
     }
 }
