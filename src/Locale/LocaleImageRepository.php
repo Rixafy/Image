@@ -8,6 +8,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
 use Ramsey\Uuid\Uuid;
+use Ramsey\Uuid\UuidInterface;
 use Rixafy\Image\LocaleImage\Exception\LocaleImageNotFoundException;
 
 class LocaleImageRepository
@@ -48,15 +49,15 @@ class LocaleImageRepository
     }
 
     /**
-     * @param string $id
+     * @param UuidInterface $id
      * @return LocaleImage
      * @throws LocaleImageNotFoundException
      */
-    public function get(string $id): LocaleImage
+    public function get(UuidInterface $id): LocaleImage
     {
         /** @var LocaleImage $localeImage */
         $localeImage = $this->getRepository()->findOneBy([
-            'id' => Uuid::fromString($id)
+            'id' => $id
         ]);
 
         if ($localeImage === null) {

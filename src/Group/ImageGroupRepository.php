@@ -8,6 +8,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
 use Ramsey\Uuid\Uuid;
+use Ramsey\Uuid\UuidInterface;
 use Rixafy\Image\ImageGroup\Exception\ImageGroupNotFoundException;
 
 class ImageGroupRepository
@@ -48,15 +49,15 @@ class ImageGroupRepository
     }
 
     /**
-     * @param string $id
+     * @param UuidInterface $id
      * @return ImageGroup
      * @throws ImageGroupNotFoundException
      */
-    public function get(string $id): ImageGroup
+    public function get(UuidInterface $id): ImageGroup
     {
         /** @var ImageGroup $image */
         $image = $this->getRepository()->findOneBy([
-            'id' => Uuid::fromString($id)
+            'id' => $id
         ]);
 
         if ($image === null) {

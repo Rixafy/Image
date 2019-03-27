@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Rixafy\Image;
 
 use Doctrine\ORM\EntityManagerInterface;
+use Ramsey\Uuid\UuidInterface;
 
 class ImageFacade
 {
@@ -63,12 +64,12 @@ class ImageFacade
     }
 
     /**
-     * @param string $id
+     * @param UuidInterface $id
      * @param ImageData $imageData
      * @return Image
      * @throws Exception\ImageNotFoundException
      */
-    public function edit(string $id, ImageData $imageData): Image
+    public function edit(UuidInterface $id, ImageData $imageData): Image
     {
         $image = $this->imageRepository->get($id);
         $image->edit($imageData);
@@ -79,11 +80,11 @@ class ImageFacade
     }
 
     /**
-     * @param string $id
+     * @param UuidInterface $id
      * @return Image
      * @throws Exception\ImageNotFoundException
      */
-    public function get(string $id): Image
+    public function get(UuidInterface $id): Image
     {
         return $this->imageRepository->get($id);
     }
@@ -91,10 +92,10 @@ class ImageFacade
     /**
      * Permanent, removes image from database and disk
      *
-     * @param string $id
+     * @param UuidInterface $id
      * @throws Exception\ImageNotFoundException
      */
-    public function remove(string $id): void
+    public function remove(UuidInterface $id): void
     {
         $entity = $this->get($id);
 

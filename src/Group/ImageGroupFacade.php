@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Rixafy\Image\ImageGroup;
 
 use Doctrine\ORM\EntityManagerInterface;
+use Ramsey\Uuid\UuidInterface;
 
 class ImageGroupFacade
 {
@@ -42,12 +43,12 @@ class ImageGroupFacade
     }
 
     /**
-     * @param string $id
+     * @param UuidInterface $id
      * @param ImageGroupData $imageGroupData
      * @return ImageGroup
      * @throws Exception\ImageGroupNotFoundException
      */
-    public function edit(string $id, ImageGroupData $imageGroupData): ImageGroup
+    public function edit(UuidInterface $id, ImageGroupData $imageGroupData): ImageGroup
     {
         $imageGroup = $this->imageGroupRepository->get($id);
         $imageGroup->edit($imageGroupData);
@@ -58,11 +59,11 @@ class ImageGroupFacade
     }
 
     /**
-     * @param string $id
+     * @param UuidInterface $id
      * @return ImageGroup
      * @throws Exception\ImageGroupNotFoundException
      */
-    public function get(string $id): ImageGroup
+    public function get(UuidInterface $id): ImageGroup
     {
         return $this->imageGroupRepository->get($id);
     }
@@ -70,10 +71,10 @@ class ImageGroupFacade
     /**
      * Permanent removal
      *
-     * @param string $id
+     * @param UuidInterface $id
      * @throws Exception\ImageGroupNotFoundException
      */
-    public function remove(string $id): void
+    public function remove(UuidInterface $id): void
     {
         $entity = $this->get($id);
 

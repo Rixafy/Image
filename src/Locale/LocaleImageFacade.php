@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Rixafy\Image\LocaleImage;
 
 use Doctrine\ORM\EntityManagerInterface;
+use Ramsey\Uuid\UuidInterface;
 use Rixafy\Image\ImageData;
 use Rixafy\Image\ImageRenderer;
 use Rixafy\Image\ImageStorage;
@@ -67,12 +68,12 @@ class LocaleImageFacade
     }
 
     /**
-     * @param string $id
+     * @param UuidInterface $id
      * @param ImageData $imageData
      * @return LocaleImage
-     * @throws Exception\LocaleImageNotFoundException
+     * @throws LocaleImageNotFoundException
      */
-    public function edit(string $id, ImageData $imageData): LocaleImage
+    public function edit(UuidInterface $id, ImageData $imageData): LocaleImage
     {
         $localeImage = $this->localeImageRepository->get($id);
         $localeImage->edit($imageData);
@@ -83,11 +84,11 @@ class LocaleImageFacade
     }
 
     /**
-     * @param string $id
+     * @param UuidInterface $id
      * @return LocaleImage
      * @throws LocaleImageNotFoundException
      */
-    public function get(string $id): LocaleImage
+    public function get(UuidInterface $id): LocaleImage
     {
         return $this->localeImageRepository->get($id);
     }
@@ -95,11 +96,11 @@ class LocaleImageFacade
     /**
      * Permanent, removes localeImage from database and disk
      *
-     * @param string $id
+     * @param UuidInterface $id
      * @throws LocaleImageNotFoundException
      * @throws \Rixafy\Image\Exception\ImageNotFoundException
      */
-    public function remove(string $id): void
+    public function remove(UuidInterface $id): void
     {
         $entity = $this->get($id);
 
