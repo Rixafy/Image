@@ -5,9 +5,7 @@ declare(strict_types=1);
 namespace Rixafy\Image;
 
 use Doctrine\ORM\Mapping as ORM;
-use Rixafy\Doctrination\Annotation\Translatable;
 use Doctrine\Common\Collections\ArrayCollection;
-use Rixafy\Doctrination\EntityTranslator;
 use Rixafy\DoctrineTraits\DateTimeTrait;
 use Rixafy\DoctrineTraits\UniqueTrait;
 
@@ -16,7 +14,7 @@ use Rixafy\DoctrineTraits\UniqueTrait;
  * @ORM\HasLifecycleCallbacks
  * @ORM\Table(name="image")
  */
-class Image extends EntityTranslator
+class Image
 {
     use UniqueTrait;
     use DateTimeTrait;
@@ -48,7 +46,10 @@ class Image extends EntityTranslator
      */
     public function edit(ImageData $imageData)
     {
-        $this->editTranslation($imageData);
+        $this->url_name = $imageData->urlName;
+        $this->alternative_text = $imageData->alternativeText;
+        $this->title = $imageData->title;
+        $this->description = $imageData->description;
     }
 
     /**
