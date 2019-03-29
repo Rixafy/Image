@@ -56,7 +56,9 @@ class ImageStorage
 
         try {
             $renderImage = NetteImage::fromFile($imageData->realPath);
-            $renderImage->resize($imageData->width, $imageData->height, $resizeType);
+            if ($imageData->width !== null || $imageData->height !== null) {
+                $renderImage->resize($imageData->width, $imageData->height, $resizeType);
+            }
             $renderImage->save($tempPath, NetteImage::PNG ? 1 : 100, $format);
 
         } catch (UnknownImageFileException | ImageException $e) {
