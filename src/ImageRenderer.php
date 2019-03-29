@@ -6,7 +6,6 @@ namespace Rixafy\Image;
 
 use Nette\Utils\Image as NetteImage;
 use Nette\Utils\ImageException;
-use Nette\Utils\UnknownImageFileException;
 use Ramsey\Uuid\UuidInterface;
 
 class ImageRenderer
