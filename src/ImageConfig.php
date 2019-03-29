@@ -14,22 +14,34 @@ class ImageConfig
     private $savePath;
 
     /**
-     * Path for caching image in different sizes or WebP type
+     * Path for caching images, for instance "../thumbs"
      *
      * @var string
      */
     private $cachePath;
 
     /**
+     * Path for viewing images through website, for instance "/thumbs"
+     *
+     * @var string
+     */
+    private $webPath;
+
+    /**
      * Convert all PNG/JPEG to WebP format?
      *
      * @var bool
      */
-    private $webpOptimization = true;
+    private $webpOptimization;
 
-    public function __construct($savePath, $cachePath, $webpOptimization = true)
-    {
+    public function __construct(
+        string $savePath = 'img/upload',
+        string $cachePath = 'image',
+        string $webPath = 'image',
+        $webpOptimization = true
+    ) {
         $this->savePath = $savePath;
+        $this->webPath = $webPath;
         $this->cachePath = $cachePath;
         $this->webpOptimization = $webpOptimization;
     }
@@ -48,6 +60,14 @@ class ImageConfig
     public function getCachePath(): string
     {
         return $this->cachePath;
+    }
+
+    /**
+     * @return string
+     */
+    public function getWebPath(): string
+    {
+        return $this->webPath;
     }
 
     /**
