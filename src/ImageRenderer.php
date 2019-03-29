@@ -33,9 +33,7 @@ class ImageRenderer
      */
     public function render(UuidInterface $uuid, ImageData $imageData, int $resizeType = NetteImage::EXACT): void
     {
-        $tempPath = $this->createTempPath($uuid, $imageData, $resizeType);
-
-        NetteImage::fromFile($tempPath)->send();
+        NetteImage::fromFile($this->createTempPath($uuid, $imageData, $resizeType))->send();
     }
 
     /**
