@@ -73,7 +73,7 @@ class LocaleImage extends EntityTranslator
     /**
      * @param ImageData $imageData
      */
-    public function edit(ImageData $imageData)
+    public function edit(ImageData $imageData): void
     {
         $this->editTranslation($imageData);
     }
