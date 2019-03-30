@@ -34,7 +34,7 @@ class Image
     /**
      * @param ImageData $imageData
      */
-    public function edit(ImageData $imageData)
+    public function edit(ImageData $imageData): void
     {
         $this->url_name = $imageData->urlName;
         $this->alternative_text = $imageData->alternativeText;
