@@ -60,12 +60,4 @@ class Image
 
         return $data;
     }
-
-    /**
-     * @return ImageTranslation[]
-     */
-    public function getTranslations()
-    {
-        return $this->translations;
-    }
 }
