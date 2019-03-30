@@ -57,7 +57,6 @@ class Image
         $data->width = $this->width;
         $data->height = $this->height;
         $data->fileFormat = $this->file_format;
-        $data->language = $this->translationLanguage;
 
         return $data;
     }
