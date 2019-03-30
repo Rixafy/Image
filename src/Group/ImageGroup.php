@@ -29,7 +29,7 @@ class ImageGroup
         $this->edit($imageGroupData);
     }
 
-    public function edit(ImageGroupData $imageGroupData)
+    public function edit(ImageGroupData $imageGroupData): void
     {
         $this->name = $imageGroupData->name;
     }
