@@ -25,7 +25,7 @@ class LocaleImageTranslation
      * Many Translations have One Language. Unidirectional.
      * @ORM\ManyToOne(targetEntity="\Rixafy\Doctrination\Language\Language")
      * @ORM\JoinColumn(name="language_id", referencedColumnName="id")
-     * @var \Rixafy\Doctrination\Language\Language
+     * @var Language
      */
     private $language;
 
@@ -40,7 +40,7 @@ class LocaleImageTranslation
     /**
      * ImageTranslation constructor.
      * @param ImageData $imageData
-     * @param \Rixafy\Doctrination\Language\Language $language
+     * @param Language $language
      * @param LocaleImage $entity
      */
     public function __construct(ImageData $imageData, Language $language, LocaleImage $entity)

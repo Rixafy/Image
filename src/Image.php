@@ -31,9 +31,6 @@ class Image
         $this->edit($imageData);
     }
 
-    /**
-     * @param ImageData $imageData
-     */
     public function edit(ImageData $imageData): void
     {
         $this->url_name = $imageData->urlName;
@@ -42,9 +39,6 @@ class Image
         $this->description = $imageData->description;
     }
 
-    /**
-     * @return ImageData
-     */
     public function getData(): ImageData
     {
         $data = new ImageData();

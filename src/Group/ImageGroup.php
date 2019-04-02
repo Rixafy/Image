@@ -34,9 +34,6 @@ class ImageGroup
         $this->name = $imageGroupData->name;
     }
 
-    /**
-     * @return string
-     */
     public function getName(): string
     {
         return $this->name;
