@@ -29,14 +29,11 @@ class ImageGroup
         $this->edit($imageGroupData);
     }
 
-    public function edit(ImageGroupData $imageGroupData)
+    public function edit(ImageGroupData $imageGroupData): void
     {
         $this->name = $imageGroupData->name;
     }
 
-    /**
-     * @return string
-     */
     public function getName(): string
     {
         return $this->name;

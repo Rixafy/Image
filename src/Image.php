@@ -31,10 +31,7 @@ class Image
         $this->edit($imageData);
     }
 
-    /**
-     * @param ImageData $imageData
-     */
-    public function edit(ImageData $imageData)
+    public function edit(ImageData $imageData): void
     {
         $this->url_name = $imageData->urlName;
         $this->alternative_text = $imageData->alternativeText;
@@ -42,9 +39,6 @@ class Image
         $this->description = $imageData->description;
     }
 
-    /**
-     * @return ImageData
-     */
     public function getData(): ImageData
     {
         $data = new ImageData();
@@ -57,16 +51,7 @@ class Image
         $data->width = $this->width;
         $data->height = $this->height;
         $data->fileFormat = $this->file_format;
-        $data->language = $this->translationLanguage;
 
         return $data;
-    }
-
-    /**
-     * @return ImageTranslation[]
-     */
-    public function getTranslations()
-    {
-        return $this->translations;
     }
 }

@@ -70,17 +70,11 @@ class LocaleImage extends EntityTranslator
         $this->edit($imageData);
     }
 
-    /**
-     * @param ImageData $imageData
-     */
-    public function edit(ImageData $imageData)
+    public function edit(ImageData $imageData): void
     {
         $this->editTranslation($imageData);
     }
 
-    /**
-     * @return ImageData
-     */
     public function getData(): ImageData
     {
         $data = new ImageData();
@@ -98,33 +92,21 @@ class LocaleImage extends EntityTranslator
         return $data;
     }
 
-    /**
-     * @return string
-     */
     public function getUrlName(): string
     {
         return $this->url_name;
     }
 
-    /**
-     * @return string
-     */
     public function getDescription(): string
     {
         return $this->description;
     }
 
-    /**
-     * @return string
-     */
     public function getTitle(): string
     {
         return $this->title;
     }
 
-    /**
-     * @return string
-     */
     public function getAlternativeText(): string
     {
         return $this->alternative_text;
