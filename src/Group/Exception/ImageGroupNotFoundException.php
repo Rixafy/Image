@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Rixafy\Image\ImageGroup\Exception;
+namespace Rixafy\Image\Group\Exception;
 
 class ImageGroupNotFoundException extends \Exception
 {

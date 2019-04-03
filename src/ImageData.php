@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Rixafy\Image;
 
 use Rixafy\Doctrination\Language\Language;
-use Rixafy\Image\ImageGroup\ImageGroup;
+use Rixafy\Image\Group\ImageGroup;
 
 class ImageData
 {

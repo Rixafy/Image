@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Rixafy\Image;
 
-use Rixafy\Image\ImageGroup\ImageGroup;
+use Rixafy\Image\Group\ImageGroup;
 
 trait ImagePropertiesTrait
 {
@@ -35,7 +35,7 @@ trait ImagePropertiesTrait
     /**
      * Many Images have One ImageGroup
      *
-     * @ORM\ManyToOne(targetEntity="\Rixafy\Image\ImageGroup")
+     * @ORM\ManyToOne(targetEntity="\Rixafy\Image\Group")
      * @var ImageGroup
      */
     private $image_group;

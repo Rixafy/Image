@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Rixafy\Image\ImageGroup;
+namespace Rixafy\Image\Group;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Ramsey\Uuid\UuidInterface;

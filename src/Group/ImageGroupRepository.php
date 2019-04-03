@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Rixafy\Image\ImageGroup;
+namespace Rixafy\Image\Group;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
-use Rixafy\Image\ImageGroup\Exception\ImageGroupNotFoundException;
+use Rixafy\Image\Group\Exception\ImageGroupNotFoundException;
 
 class ImageGroupRepository
 {
