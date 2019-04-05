@@ -30,33 +30,21 @@ trait ImageMetaTrait
      */
     private $alternative_text;
 
-    /**
-     * @return string
-     */
     public function getUrlName(): string
     {
         return $this->url_name;
     }
 
-    /**
-     * @return string
-     */
     public function getDescription(): string
     {
         return $this->description;
     }
 
-    /**
-     * @return string
-     */
     public function getTitle(): string
     {
         return $this->title;
     }
 
-    /**
-     * @return string
-     */
     public function getAlternativeText(): string
     {
         return $this->alternative_text;

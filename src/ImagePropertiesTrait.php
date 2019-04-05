@@ -40,41 +40,26 @@ trait ImagePropertiesTrait
      */
     private $image_group;
 
-    /**
-     * @return string
-     */
     public function getRealPath(): string
     {
         return $this->real_path;
     }
 
-    /**
-     * @return int
-     */
     public function getWidth(): int
     {
         return $this->width;
     }
 
-    /**
-     * @return int
-     */
     public function getHeight(): int
     {
         return $this->height;
     }
 
-    /**
-     * @return string
-     */
     public function getFileFormat(): string
     {
         return $this->file_format;
     }
 
-    /**
-     * @return ImageGroup
-     */
     public function getImageGroup(): ImageGroup
     {
         return $this->image_group;
