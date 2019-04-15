@@ -17,7 +17,7 @@
     },
     "require": {
         "rixafy/doctrination": "dev-master",
-        "nette/utils": "^2.4"
+        "nette/utils": "^3.0"
     },
     "config": {
         "platform": {
