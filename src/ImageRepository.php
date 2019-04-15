@@ -30,25 +30,6 @@ class ImageRepository
     }
 
     /**
-     * @param string $urlName
-     * @return Image
-     * @throws ImageNotFoundException
-     */
-    public function getByUrlName(string $urlName): Image
-    {
-        /** @var Image $image */
-        $image = $this->getRepository()->findOneBy([
-            'url_name' => $urlName
-        ]);
-
-        if ($image === null) {
-            throw new ImageNotFoundException('Image with url ' . $urlName . ' not found.');
-        }
-
-        return $image;
-    }
-
-    /**
      * @param UuidInterface $id
      * @return Image
      * @throws ImageNotFoundException
@@ -66,6 +47,25 @@ class ImageRepository
 
         return $image;
     }
+
+	/**
+	 * @param string $urlName
+	 * @return Image
+	 * @throws ImageNotFoundException
+	 */
+	public function getByUrlName(string $urlName): Image
+	{
+		/** @var Image $image */
+		$image = $this->getRepository()->findOneBy([
+			'url_name' => $urlName
+		]);
+
+		if ($image === null) {
+			throw new ImageNotFoundException('Image with url ' . $urlName . ' not found.');
+		}
+
+		return $image;
+	}
 
     public function getQueryBuilderForAll(): QueryBuilder
     {
