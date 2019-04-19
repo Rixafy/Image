@@ -28,10 +28,6 @@ class ImageGroupFacade
         $this->imageGroupFactory = $imageGroupFactory;
     }
 
-    /**
-     * @param ImageGroupData $imageGroupData
-     * @return ImageGroup
-     */
     public function create(ImageGroupData $imageGroupData): ImageGroup
     {
         $imageGroup = $this->imageGroupFactory->create($imageGroupData);
@@ -43,9 +39,6 @@ class ImageGroupFacade
     }
 
     /**
-     * @param UuidInterface $id
-     * @param ImageGroupData $imageGroupData
-     * @return ImageGroup
      * @throws Exception\ImageGroupNotFoundException
      */
     public function edit(UuidInterface $id, ImageGroupData $imageGroupData): ImageGroup
@@ -59,8 +52,6 @@ class ImageGroupFacade
     }
 
     /**
-     * @param UuidInterface $id
-     * @return ImageGroup
      * @throws Exception\ImageGroupNotFoundException
      */
     public function get(UuidInterface $id): ImageGroup
@@ -71,7 +62,6 @@ class ImageGroupFacade
     /**
      * Permanent removal
      *
-     * @param UuidInterface $id
      * @throws Exception\ImageGroupNotFoundException
      */
     public function remove(UuidInterface $id): void
@@ -82,5 +72,4 @@ class ImageGroupFacade
 
         $this->entityManager->flush();
     }
-
 }

@@ -46,33 +46,21 @@ class ImageConfig
         $this->webpOptimization = $webpOptimization;
     }
 
-    /**
-     * @return string
-     */
     public function getSavePath(): string
     {
         return $this->savePath;
     }
 
-    /**
-     * @return string
-     */
     public function getCachePath(): string
     {
         return $this->cachePath;
     }
 
-    /**
-     * @return string
-     */
     public function getWebPath(): string
     {
         return $this->webPath;
     }
 
-    /**
-     * @return bool
-     */
     public function isWebpOptimization(): bool
     {
         return $this->webpOptimization;

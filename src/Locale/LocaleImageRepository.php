@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Rixafy\Image\LocaleImage;
 
+use Doctrine\Common\Persistence\ObjectRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
-use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 use Rixafy\Image\LocaleImage\Exception\LocaleImageNotFoundException;
 
@@ -22,7 +22,7 @@ class LocaleImageRepository
     }
 
     /**
-     * @return EntityRepository|\Doctrine\Common\Persistence\ObjectRepository
+     * @return EntityRepository|ObjectRepository
      */
     protected function getRepository()
     {
@@ -30,8 +30,6 @@ class LocaleImageRepository
     }
 
     /**
-     * @param string $urlName
-     * @return LocaleImage
      * @throws LocaleImageNotFoundException
      */
     public function getByUrlName(string $urlName): LocaleImage
@@ -49,8 +47,6 @@ class LocaleImageRepository
     }
 
     /**
-     * @param UuidInterface $id
-     * @return LocaleImage
      * @throws LocaleImageNotFoundException
      */
     public function get(UuidInterface $id): LocaleImage

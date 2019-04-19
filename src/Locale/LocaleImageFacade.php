@@ -5,7 +5,10 @@ declare(strict_types=1);
 namespace Rixafy\Image\LocaleImage;
 
 use Doctrine\ORM\EntityManagerInterface;
+use Nette\Utils\ImageException;
 use Ramsey\Uuid\UuidInterface;
+use Rixafy\Image\Exception\ImageNotFoundException;
+use Rixafy\Image\Exception\ImageSaveException;
 use Rixafy\Image\ImageData;
 use Rixafy\Image\ImageRenderer;
 use Rixafy\Image\ImageStorage;
@@ -29,14 +32,6 @@ class LocaleImageFacade
     /** @var LocaleImageFactory */
     private $localeImageFactory;
 
-    /**
-     * LocaleImageFacade constructor.
-     * @param ImageStorage $imageStorage
-     * @param EntityManagerInterface $entityManager
-     * @param LocaleImageRepository $localeImageRepository
-     * @param ImageRenderer $imageRenderer
-     * @param LocaleImageFactory $localeImageFactory
-     */
     public function __construct(
         ImageStorage $imageStorage,
         EntityManagerInterface $entityManager,
@@ -52,9 +47,7 @@ class LocaleImageFacade
     }
 
     /**
-     * @param ImageData $imageData
-     * @return LocaleImage
-     * @throws \Rixafy\Image\Exception\ImageSaveException
+     * @throws ImageSaveException
      */
     public function create(ImageData $imageData): LocaleImage
     {
@@ -69,9 +62,6 @@ class LocaleImageFacade
     }
 
     /**
-     * @param UuidInterface $id
-     * @param ImageData $imageData
-     * @return LocaleImage
      * @throws LocaleImageNotFoundException
      */
     public function edit(UuidInterface $id, ImageData $imageData): LocaleImage
@@ -85,8 +75,6 @@ class LocaleImageFacade
     }
 
     /**
-     * @param UuidInterface $id
-     * @return LocaleImage
      * @throws LocaleImageNotFoundException
      */
     public function get(UuidInterface $id): LocaleImage
@@ -94,13 +82,12 @@ class LocaleImageFacade
         return $this->localeImageRepository->get($id);
     }
 
-    /**
-     * Permanent, removes localeImage from database and disk
-     *
-     * @param UuidInterface $id
-     * @throws LocaleImageNotFoundException
-     * @throws \Rixafy\Image\Exception\ImageNotFoundException
-     */
+	/**
+	 * Permanent, removes localeImage from database and disk
+	 *
+	 * @throws ImageNotFoundException
+	 * @throws LocaleImageNotFoundException
+	 */
     public function remove(UuidInterface $id): void
     {
         $entity = $this->get($id);
@@ -115,12 +102,8 @@ class LocaleImageFacade
     /**
      * Returns image response to browser, image must be firstly generated
      *
-     * @param UuidInterface $id
-     * @param int|null $width
-     * @param int|null $height
-     * @param int $resizeType
      * @throws Exception\LocaleImageNotFoundException
-     * @throws \Nette\Utils\ImageException
+     * @throws ImageException
      */
     public function render(UuidInterface $id, int $width = null, int $height = null, $resizeType = NetteImage::EXACT): void
     {
@@ -136,12 +119,7 @@ class LocaleImageFacade
     /**
      * Creates a temporary image file, render is not possible without existing file, this should happen in a template
      *
-     * @param UuidInterface $id
-     * @param int|null $width
-     * @param int|null $height
-     * @param int $resizeType
-     * @return string
-     * @throws \Nette\Utils\ImageException
+     * @throws ImageException
      * @throws LocaleImageNotFoundException
      */
     public function generate(UuidInterface $id, int $width = null, int $height = null, $resizeType = NetteImage::EXACT): string

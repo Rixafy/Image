@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Rixafy\Image;
 
 use Doctrine\ORM\EntityManagerInterface;
+use Nette\Utils\ImageException;
 use Ramsey\Uuid\UuidInterface;
 use Nette\Utils\Image as NetteImage;
 
@@ -25,14 +26,6 @@ class ImageFacade
     /** @var ImageFactory */
     private $imageFactory;
 
-    /**
-     * ImageFacade constructor.
-     * @param ImageStorage $imageStorage
-     * @param EntityManagerInterface $entityManager
-     * @param ImageRepository $imageRepository
-     * @param ImageRenderer $imageRenderer
-     * @param ImageFactory $imageFactory
-     */
     public function __construct(
         ImageStorage $imageStorage,
         EntityManagerInterface $entityManager,
@@ -48,8 +41,6 @@ class ImageFacade
     }
 
     /**
-     * @param ImageData $imageData
-     * @return Image
      * @throws Exception\ImageSaveException
      */
     public function create(ImageData $imageData): Image
@@ -65,9 +56,6 @@ class ImageFacade
     }
 
     /**
-     * @param UuidInterface $id
-     * @param ImageData $imageData
-     * @return Image
      * @throws Exception\ImageNotFoundException
      */
     public function edit(UuidInterface $id, ImageData $imageData): Image
@@ -81,8 +69,6 @@ class ImageFacade
     }
 
     /**
-     * @param UuidInterface $id
-     * @return Image
      * @throws Exception\ImageNotFoundException
      */
     public function get(UuidInterface $id): Image
@@ -93,7 +79,6 @@ class ImageFacade
     /**
      * Permanent, removes image from database and disk
      *
-     * @param UuidInterface $id
      * @throws Exception\ImageNotFoundException
      */
     public function remove(UuidInterface $id): void
@@ -109,12 +94,8 @@ class ImageFacade
     /**
      * Returns image response to browser, image must be firstly generated
      *
-     * @param UuidInterface $id
-     * @param int|null $width
-     * @param int|null $height
-     * @param int $resizeType
      * @throws Exception\ImageNotFoundException
-     * @throws \Nette\Utils\ImageException
+     * @throws ImageException
      */
     public function render(UuidInterface $id, int $width = null, int $height = null, $resizeType = NetteImage::EXACT): void
     {
@@ -130,13 +111,8 @@ class ImageFacade
     /**
      * Creates a temporary image file, render is not possible without existing file, this should happen in a template
      *
-     * @param UuidInterface $id
-     * @param int|null $width
-     * @param int|null $height
-     * @param int $resizeType
-     * @return string
      * @throws Exception\ImageNotFoundException
-     * @throws \Nette\Utils\ImageException
+     * @throws ImageException
      */
     public function generate(UuidInterface $id, int $width = null, int $height = null, $resizeType = NetteImage::EXACT): string
     {

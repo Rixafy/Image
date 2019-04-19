@@ -25,9 +25,6 @@ class ImageRenderer
     }
 
     /**
-     * @param UuidInterface $uuid
-     * @param ImageData $imageData
-     * @param int $resizeType
      * @throws ImageException
      */
     public function render(UuidInterface $uuid, ImageData $imageData, int $resizeType = NetteImage::EXACT): void
@@ -36,10 +33,6 @@ class ImageRenderer
     }
 
     /**
-     * @param UuidInterface $uuid
-     * @param ImageData $imageData
-     * @param int $resizeType
-     * @return string Save path
      * @throws ImageException
      */
     public function generate(UuidInterface $uuid, ImageData $imageData, int $resizeType = NetteImage::EXACT): string
@@ -54,9 +47,6 @@ class ImageRenderer
     }
 
     /**
-     * @param UuidInterface $uuid
-     * @param ImageData $imageData
-     * @param int $resizeType
      * @return string
      */
     public function createTempPath(UuidInterface $uuid, ImageData $imageData, $resizeType = NetteImage::EXACT): string

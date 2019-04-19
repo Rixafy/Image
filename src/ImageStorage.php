@@ -23,9 +23,6 @@ class ImageStorage
     }
 
     /**
-     * @param $file
-     * @param string $fileName
-     * @return string Real path of image
      * @throws ImageSaveException
      */
     public function save($file, string $fileName): string
@@ -42,10 +39,6 @@ class ImageStorage
     }
 
     /**
-     * @param string $tempPath
-     * @param ImageData $imageData
-     * @param int $resizeType
-     * @return NetteImage
      * @throws ImageException
      */
     public function saveTemp(string $tempPath, ImageData $imageData, $resizeType = NetteImage::EXACT): NetteImage
@@ -70,7 +63,6 @@ class ImageStorage
     }
 
     /**
-     * @param string $path
      * @throws ImageNotFoundException
      */
     public function remove(string $path): void
