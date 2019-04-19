@@ -7,12 +7,12 @@ namespace Rixafy\Image\LocaleImage;
 use Doctrine\ORM\Mapping as ORM;
 use Rixafy\Doctrination\Annotation\Translatable;
 use Doctrine\Common\Collections\ArrayCollection;
-use Rixafy\Doctrination\EntityTranslator;
 use Rixafy\DoctrineTraits\ActiveTrait;
 use Rixafy\DoctrineTraits\DateTimeTrait;
 use Rixafy\DoctrineTraits\UniqueTrait;
 use Rixafy\Image\ImageData;
 use Rixafy\Image\ImagePropertiesTrait;
+use Rixafy\Translation\EntityTranslator;
 
 /**
  * @ORM\Entity

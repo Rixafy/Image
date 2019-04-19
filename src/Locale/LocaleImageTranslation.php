@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Rixafy\Image\LocaleImage;
 
 use Doctrine\ORM\Mapping as ORM;
-use Rixafy\Doctrination\Language\Language;
 use Rixafy\DoctrineTraits\UniqueTrait;
 use Rixafy\Image\ImageData;
 use Rixafy\Image\ImageMetaTrait;
+use Rixafy\Language\Language;
 
 /**
  * @ORM\Entity
@@ -23,7 +23,7 @@ class LocaleImageTranslation
 
     /**
      * Many Translations have One Language. Unidirectional.
-     * @ORM\ManyToOne(targetEntity="\Rixafy\Doctrination\Language\Language")
+     * @ORM\ManyToOne(targetEntity="\Rixafy\Language\Language")
      * @ORM\JoinColumn(name="language_id", referencedColumnName="id")
      * @var Language
      */
@@ -37,12 +37,6 @@ class LocaleImageTranslation
      */
     private $entity;
 
-    /**
-     * ImageTranslation constructor.
-     * @param ImageData $imageData
-     * @param Language $language
-     * @param LocaleImage $entity
-     */
     public function __construct(ImageData $imageData, Language $language, LocaleImage $entity)
     {
         $this->language = $language;

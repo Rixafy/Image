@@ -16,7 +16,8 @@
         }
     },
     "require": {
-        "rixafy/doctrination": "dev-master",
+        "rixafy/language": "dev-master",
+        "rixafy/translation": "dev-master",
         "nette/utils": "^3.0"
     },
     "config": {
