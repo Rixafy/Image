@@ -35,7 +35,7 @@ trait ImagePropertiesTrait
     /**
      * Many Images have One ImageGroup
      *
-     * @ORM\ManyToOne(targetEntity="\Rixafy\Image\Group")
+     * @ORM\ManyToOne(targetEntity="\Rixafy\Image\Group\ImageGroup")
      * @var ImageGroup
      */
     private $image_group;
