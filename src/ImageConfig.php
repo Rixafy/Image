@@ -21,13 +21,6 @@ class ImageConfig
     private $cachePath;
 
     /**
-     * Path for viewing images through website, for instance "/thumbs"
-     *
-     * @var string
-     */
-    private $webPath;
-
-    /**
      * Convert all PNG/JPEG to WebP format?
      *
      * @var bool
@@ -36,12 +29,10 @@ class ImageConfig
 
     public function __construct(
         string $savePath = 'img/upload',
-        string $cachePath = 'image',
-        string $webPath = 'image',
+        string $cachePath = 'images',
         $webpOptimization = true
     ) {
         $this->savePath = $savePath;
-        $this->webPath = $webPath;
         $this->cachePath = $cachePath;
         $this->webpOptimization = $webpOptimization;
     }
@@ -54,11 +45,6 @@ class ImageConfig
     public function getCachePath(): string
     {
         return $this->cachePath;
-    }
-
-    public function getWebPath(): string
-    {
-        return $this->webPath;
     }
 
     public function isWebpOptimization(): bool
