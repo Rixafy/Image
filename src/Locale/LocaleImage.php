@@ -79,7 +79,6 @@ class LocaleImage extends EntityTranslator
     {
         $data = new ImageData();
 
-        $data->urlName = $this->url_name;
         $data->description = $this->description;
         $data->title = $this->title;
         $data->alternativeText = $this->alternative_text;

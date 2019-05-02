@@ -41,7 +41,6 @@ class LocaleImageTranslation
     {
         $this->language = $language;
         $this->entity = $entity;
-        $this->url_name = $imageData->urlName;
         $this->description = $imageData->description;
         $this->title = $imageData->title;
         $this->alternative_text = $imageData->alternativeText;

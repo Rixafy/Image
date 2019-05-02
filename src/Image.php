@@ -33,7 +33,6 @@ class Image
 
     public function edit(ImageData $imageData): void
     {
-        $this->url_name = $imageData->urlName;
         $this->alternative_text = $imageData->alternativeText;
         $this->title = $imageData->title;
         $this->description = $imageData->description;
@@ -43,7 +42,6 @@ class Image
     {
         $data = new ImageData();
 
-        $data->urlName = $this->url_name;
         $data->description = $this->description;
         $data->title = $this->title;
         $data->alternativeText = $this->alternative_text;
