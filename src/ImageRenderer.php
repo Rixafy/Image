@@ -51,6 +51,6 @@ class ImageRenderer
      */
     public function createTempPath(UuidInterface $uuid, ImageData $imageData, $resizeType = NetteImage::EXACT): string
     {
-        return $this->imageConfig->getCachePath() . '/' . $imageData->fileFormat . '/' . (int) $imageData->width. '_' . (int) $imageData->height . '_' . $resizeType . '/' . (string) $uuid . '.' . $imageData->fileFormat;
+        return $this->imageConfig->getCachePath() . '/' . $imageData->fileFormat . '/' . (int) $imageData->width . '_' . (int) $imageData->height . '_' . $resizeType . '/' . (string) $uuid . '.' . $imageData->fileFormat;
     }
 }
