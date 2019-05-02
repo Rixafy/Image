@@ -7,12 +7,6 @@ namespace Rixafy\Image;
 trait ImageMetaTrait
 {
     /**
-     * @ORM\Column(type="string", length=255)
-     * @var string
-     */
-    private $url_name;
-
-    /**
      * @ORM\Column(type="text", nullable=true)
      * @var string
      */
@@ -29,11 +23,6 @@ trait ImageMetaTrait
      * @var string
      */
     private $alternative_text;
-
-    public function getUrlName(): string
-    {
-        return $this->url_name;
-    }
 
     public function getDescription(): string
     {
