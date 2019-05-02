@@ -101,11 +101,7 @@ class ImageFacade
     {
         $entity = $this->get($id);
 
-        $imageData = $entity->getData();
-        $imageData->width = $width == null ? $entity->getWidth() : $width;
-        $imageData->height = $width == null ? $entity->getHeight() : $height;
-
-        $this->imageRenderer->render($id, $entity, $resizeType);
+        $this->imageRenderer->render($id, $entity, $width, $height, $resizeType);
     }
 
     /**

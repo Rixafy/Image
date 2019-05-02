@@ -10,6 +10,7 @@ use Ramsey\Uuid\UuidInterface;
 use Rixafy\Image\Exception\ImageNotFoundException;
 use Rixafy\Image\Exception\ImageSaveException;
 use Rixafy\Image\ImageData;
+use Rixafy\Image\ImageInterface;
 use Rixafy\Image\ImageRenderer;
 use Rixafy\Image\ImageStorage;
 use Rixafy\Image\LocaleImage\Exception\LocaleImageNotFoundException;
@@ -109,11 +110,7 @@ class LocaleImageFacade
     {
         $entity = $this->get($id);
 
-        $imageData = $entity->getData();
-        $imageData->width = $width == null ? $entity->getWidth() : $width;
-        $imageData->height = $width == null ? $entity->getHeight() : $height;
-
-        $this->imageRenderer->render($id, $imageData, $resizeType);
+        $this->imageRenderer->render($id, $entity, $width, $height, $resizeType);
     }
 
     /**
@@ -126,10 +123,6 @@ class LocaleImageFacade
     {
         $entity = $this->get($id);
 
-        $imageData = $entity->getData();
-        $imageData->width = $width == null ? $entity->getWidth() : $width;
-        $imageData->height = $width == null ? $entity->getHeight() : $height;
-
-        return $this->imageRenderer->generate($id, $imageData, $resizeType);
+        return $this->imageRenderer->generate($id, $entity, $width, $height, $resizeType);
     }
 }
