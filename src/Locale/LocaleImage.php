@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Rixafy\Image\LocaleImage;
 
 use Doctrine\ORM\Mapping as ORM;
+use Rixafy\Image\ImageInterface;
 use Rixafy\Translation\Annotation\Translatable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Rixafy\DoctrineTraits\ActiveTrait;
@@ -19,7 +20,7 @@ use Rixafy\Translation\EntityTranslator;
  * @ORM\HasLifecycleCallbacks
  * @ORM\Table(name="locale_image")
  */
-class LocaleImage extends EntityTranslator
+class LocaleImage extends EntityTranslator implements ImageInterface
 {
     use UniqueTrait;
     use ActiveTrait;

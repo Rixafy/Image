@@ -13,7 +13,7 @@ use Rixafy\DoctrineTraits\UniqueTrait;
  * @ORM\HasLifecycleCallbacks
  * @ORM\Table(name="image")
  */
-class Image
+class Image implements ImageInterface
 {
     use UniqueTrait;
     use DateTimeTrait;

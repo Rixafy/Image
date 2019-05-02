@@ -27,20 +27,20 @@ class ImageRenderer
     /**
      * @throws ImageException
      */
-    public function render(UuidInterface $uuid, ImageData $imageData, int $resizeType = NetteImage::EXACT): void
+    public function render(UuidInterface $uuid, ImageInterface $image, int $resizeType = NetteImage::EXACT): void
     {
-        NetteImage::fromFile($this->createTempPath($uuid, $imageData, $resizeType))->send();
+        NetteImage::fromFile($this->createTempPath($uuid, $image, $resizeType))->send();
     }
 
     /**
      * @throws ImageException
      */
-    public function generate(UuidInterface $uuid, ImageData $imageData, int $resizeType = NetteImage::EXACT): string
+    public function generate(UuidInterface $uuid, ImageInterface $image, int $resizeType = NetteImage::EXACT): string
     {
-        $tempPath = $this->createTempPath($uuid, $imageData, $resizeType);
+        $tempPath = $this->createTempPath($uuid, $image, $resizeType);
 
         if (file_exists($tempPath) === false) {
-            $this->imageStorage->saveTemp($tempPath, $imageData, $resizeType);
+            $this->imageStorage->saveTemp($tempPath, $image, $resizeType);
         }
 
         return $tempPath;
@@ -49,8 +49,8 @@ class ImageRenderer
     /**
      * @return string
      */
-    public function createTempPath(UuidInterface $uuid, ImageData $imageData, $resizeType = NetteImage::EXACT): string
+    public function createTempPath(UuidInterface $uuid, ImageInterface $image, $resizeType = NetteImage::EXACT): string
     {
-        return $this->imageConfig->getCachePath() . '/' . $imageData->fileFormat . '/' . (int) $imageData->width . '_' . (int) $imageData->height . '_' . $resizeType . '/' . (string) $uuid . '.' . $imageData->fileFormat;
+        return $this->imageConfig->getCachePath() . '/' . $image->getFileFormat() . '/' . (int) $image->getWidth() . '_' . (int) $image->getHeight() . '_' . $resizeType . '/' . (string) $uuid . '.' . $image->getFileFormat();
     }
 }

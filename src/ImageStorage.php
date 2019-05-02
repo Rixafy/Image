@@ -41,15 +41,15 @@ class ImageStorage
     /**
      * @throws ImageException
      */
-    public function saveTemp(string $tempPath, ImageData $imageData, $resizeType = NetteImage::EXACT): NetteImage
+    public function saveTemp(string $tempPath, ImageInterface $image, $resizeType = NetteImage::EXACT): NetteImage
     {
         $extensions = array_flip(self::FORMATS) + ['jpg' => NetteImage::JPEG];
-        $format = isset($extensions[$imageData->fileFormat]) ? $extensions[$imageData->fileFormat] : self::FORMATS['webp'];
+        $format = isset($extensions[$imageData->fileFormat]) ? $extensions[$image->getFileFormat()] : self::FORMATS['webp'];
 
         try {
-            $renderImage = NetteImage::fromFile($imageData->realPath);
-            if ($imageData->width !== null || $imageData->height !== null) {
-                $renderImage->resize($imageData->width, $imageData->height, $resizeType);
+            $renderImage = NetteImage::fromFile($image->getRealPath());
+            if ($image->getWidth() !== null || $image->getHeight() !== null) {
+                $renderImage->resize($image->getWidth(), $image->getHeight(), $resizeType);
             }
             $renderImage->save($tempPath, NetteImage::PNG ? 1 : 100, $format);
 
