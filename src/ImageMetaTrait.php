@@ -13,19 +13,19 @@ trait ImageMetaTrait
     private $url_name;
 
     /**
-     * @ORM\Column(type="string", length=1023)
+     * @ORM\Column(type="text", nullable=true)
      * @var string
      */
     private $description;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=127, nullable=true)
      * @var string
      */
     private $title;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=127, nullable=true)
      * @var string
      */
     private $alternative_text;
