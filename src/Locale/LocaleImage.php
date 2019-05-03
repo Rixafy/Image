@@ -62,7 +62,6 @@ class LocaleImage extends EntityTranslator implements ImageInterface
     public function __construct(ImageData $imageData)
     {
         $this->image_group = $imageData->imageGroup;
-        $this->real_path = $imageData->realPath;
         $this->file_format = $imageData->fileFormat;
         $this->translations = new ArrayCollection();
 
@@ -84,7 +83,6 @@ class LocaleImage extends EntityTranslator implements ImageInterface
         $data->description = $this->description;
         $data->title = $this->title;
         $data->alternativeText = $this->alternative_text;
-        $data->realPath = $this->real_path;
         $data->fileFormat = $this->file_format;
         $data->language = $this->translationLanguage;
 

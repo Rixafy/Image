@@ -19,9 +19,6 @@ class ImageData
     public $alternativeText;
 
     /** @var string */
-    public $realPath;
-
-    /** @var string */
     public $fileFormat;
 
     /** @var array */

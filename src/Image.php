@@ -23,7 +23,6 @@ class Image implements ImageInterface
     public function __construct(ImageData $imageData)
     {
         $this->image_group = $imageData->imageGroup;
-        $this->real_path = $imageData->realPath;
         $this->file_format = $imageData->fileFormat;
 
 		[$this->width, $this->height] = getimagesize($imageData->file['tmp_name']);
@@ -46,7 +45,6 @@ class Image implements ImageInterface
         $data->description = $this->description;
         $data->title = $this->title;
         $data->alternativeText = $this->alternative_text;
-        $data->realPath = $this->real_path;
         $data->fileFormat = $this->file_format;
 
         return $data;
