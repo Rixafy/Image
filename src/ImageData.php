@@ -30,7 +30,7 @@ class ImageData
     /** @var string */
     public $fileFormat;
 
-    /** @var string */
+    /** @var array */
     public $file;
 
     /** @var ImageGroup */
