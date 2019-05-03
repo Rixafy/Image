@@ -67,6 +67,7 @@ class LocaleImage extends EntityTranslator implements ImageInterface
         $this->translations = new ArrayCollection();
 
 		[$this->width, $this->height] = getimagesize($imageData->file['tmp_name']);
+		$this->file_extension = pathinfo($imageData->file['tmp_name'], PATHINFO_EXTENSION);
 
 		$this->edit($imageData);
     }

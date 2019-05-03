@@ -33,6 +33,12 @@ trait ImagePropertiesTrait
     private $file_format;
 
     /**
+     * @ORM\Column(type="string", length=5)
+     * @var string
+     */
+    private $file_extension;
+
+    /**
      * Many Images have One ImageGroup
      *
      * @ORM\ManyToOne(targetEntity="\Rixafy\Image\Group\ImageGroup")
@@ -59,6 +65,11 @@ trait ImagePropertiesTrait
     {
         return $this->file_format;
     }
+
+	public function getFileExtension(): string
+	{
+		return $this->file_extension;
+	}
 
     public function getImageGroup(): ImageGroup
     {

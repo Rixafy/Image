@@ -27,8 +27,9 @@ class Image implements ImageInterface
         $this->file_format = $imageData->fileFormat;
 
 		[$this->width, $this->height] = getimagesize($imageData->file['tmp_name']);
+		$this->file_extension = pathinfo($imageData->file['tmp_name'], PATHINFO_EXTENSION);
 
-        $this->edit($imageData);
+		$this->edit($imageData);
     }
 
     public function edit(ImageData $imageData): void
