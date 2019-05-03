@@ -18,9 +18,6 @@ class ImageData
     /** @var string */
     public $alternativeText;
 
-    /** @var string */
-    public $fileFormat;
-
     /** @var array */
     public $file;
 
