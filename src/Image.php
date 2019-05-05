@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Rixafy\Image;
 
 use Doctrine\ORM\Mapping as ORM;
+use Ramsey\Uuid\UuidInterface;
 use Rixafy\DoctrineTraits\DateTimeTrait;
-use Rixafy\DoctrineTraits\UniqueTrait;
 
 /**
  * @ORM\Entity
@@ -15,13 +15,20 @@ use Rixafy\DoctrineTraits\UniqueTrait;
  */
 class Image implements ImageInterface
 {
-    use UniqueTrait;
+	/**
+	 * @var UuidInterface
+	 * @ORM\Id
+	 * @ORM\Column(type="uuid_binary", unique=true)
+	 */
+	protected $id;
+
     use DateTimeTrait;
     use ImagePropertiesTrait;
     use ImageMetaTrait;
 
-    public function __construct(ImageData $imageData)
+    public function __construct(UuidInterface $id, ImageData $imageData)
     {
+    	$this->id = $id;
         $this->image_group = $imageData->imageGroup;
 
 		[$this->width, $this->height] = getimagesize($imageData->file['tmp_name']);
@@ -36,6 +43,11 @@ class Image implements ImageInterface
         $this->title = $imageData->title;
         $this->description = $imageData->description;
     }
+
+    public function getId(): UuidInterface
+	{
+		return $this->id;
+	}
 
     public function getData(): ImageData
     {

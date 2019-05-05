@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace Rixafy\Image\LocaleImage;
 
 use Doctrine\ORM\Mapping as ORM;
+use Ramsey\Uuid\UuidInterface;
 use Rixafy\Image\ImageInterface;
 use Rixafy\Translation\Annotation\Translatable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Rixafy\DoctrineTraits\ActiveTrait;
 use Rixafy\DoctrineTraits\DateTimeTrait;
-use Rixafy\DoctrineTraits\UniqueTrait;
 use Rixafy\Image\ImageData;
 use Rixafy\Image\ImagePropertiesTrait;
 use Rixafy\Translation\EntityTranslator;
@@ -22,10 +22,16 @@ use Rixafy\Translation\EntityTranslator;
  */
 class LocaleImage extends EntityTranslator implements ImageInterface
 {
-    use UniqueTrait;
     use ActiveTrait;
     use DateTimeTrait;
     use ImagePropertiesTrait;
+
+	/**
+	 * @var UuidInterface
+	 * @ORM\Id
+	 * @ORM\Column(type="uuid_binary", unique=true)
+	 */
+	protected $id;
 
     /**
      * @Translatable
@@ -59,8 +65,9 @@ class LocaleImage extends EntityTranslator implements ImageInterface
      */
     protected $translations;
 
-    public function __construct(ImageData $imageData)
+    public function __construct(UuidInterface $id, ImageData $imageData)
     {
+    	$this->id = $id;
         $this->image_group = $imageData->imageGroup;
         $this->translations = new ArrayCollection();
 
@@ -74,6 +81,11 @@ class LocaleImage extends EntityTranslator implements ImageInterface
     {
         $this->editTranslation($imageData);
     }
+
+    public function getId(): UuidInterface
+	{
+		return $this->id;
+	}
 
     public function getData(): ImageData
     {
