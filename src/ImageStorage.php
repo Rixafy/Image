@@ -28,7 +28,7 @@ class ImageStorage
     public function save(string $tmpName, string $fileName): string
     {
         $extension = strtolower(pathinfo(basename($tmpName),PATHINFO_EXTENSION));
-        $target = $this->imageConfig->getSavePath() . $fileName . '.' . $extension;
+        $target = $this->imageConfig->getSavePath() . '/' . $fileName . '.' . $extension;
         $moveResult = move_uploaded_file($tmpName, $target);
 
         if (!$moveResult) {
