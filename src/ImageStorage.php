@@ -29,7 +29,7 @@ class ImageStorage
     {
         $extension = strtolower(pathinfo(basename($tmpName),PATHINFO_EXTENSION));
         $target = $this->imageConfig->getSavePath() . $fileName . '.' . $extension;
-        $moveResult = move_uploaded_file($tmpName, $this->imageConfig->getSavePath() . $fileName . '.' . $extension);
+        $moveResult = move_uploaded_file($tmpName, $target);
 
         if (!$moveResult) {
             throw new ImageSaveException('Image could not be saved.');
