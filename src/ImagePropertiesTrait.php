@@ -9,7 +9,7 @@ use Rixafy\Image\Group\ImageGroup;
 trait ImagePropertiesTrait
 {
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      * @var string
      */
     private $real_path;
