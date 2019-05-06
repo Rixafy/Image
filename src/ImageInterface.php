@@ -12,5 +12,7 @@ interface ImageInterface
 
 	public function getFileFormat(): string;
 
+	public function getFileExtension(): string;
+
 	public function getRealPath(): string;
 }
