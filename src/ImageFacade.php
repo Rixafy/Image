@@ -47,7 +47,7 @@ class ImageFacade
     {
         $image = $this->imageFactory->create($imageData);
 
-        $this->imageStorage->save($imageData->file['tmp_name'], (string) $image->getId());
+        $this->imageStorage->save($image, $imageData->file['tmp_name'], (string) $image->getId());
 
         $this->entityManager->persist($image);
         $this->entityManager->flush();

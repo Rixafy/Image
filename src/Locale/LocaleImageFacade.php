@@ -54,7 +54,7 @@ class LocaleImageFacade
     {
         $localeImage = $this->localeImageFactory->create($imageData);
 
-        $this->imageStorage->save($imageData->file['tmp_name'], (string) $localeImage->getId());
+        $this->imageStorage->save($localeImage, $imageData->file['tmp_name'], (string) $localeImage->getId());
 
         $this->entityManager->persist($localeImage);
         $this->entityManager->flush();
