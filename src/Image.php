@@ -32,7 +32,7 @@ class Image implements ImageInterface
         $this->image_group = $imageData->imageGroup;
 
 		[$this->width, $this->height] = getimagesize($imageData->file['tmp_name']);
-		$this->file_extension = pathinfo($imageData->file['tmp_name'], PATHINFO_EXTENSION);
+		$this->file_extension = pathinfo($imageData->file['name'], PATHINFO_EXTENSION);
 
 		$this->edit($imageData);
     }
