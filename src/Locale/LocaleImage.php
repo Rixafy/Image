@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Rixafy\Image\LocaleImage;
 
+use Rixafy\Translation\Annotation\Translatable;
 use Doctrine\ORM\Mapping as ORM;
 use Ramsey\Uuid\UuidInterface;
 use Rixafy\Image\ImageInterface;
-use Rixafy\Translation\Annotation\Translatable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Rixafy\DoctrineTraits\ActiveTrait;
 use Rixafy\DoctrineTraits\DateTimeTrait;
