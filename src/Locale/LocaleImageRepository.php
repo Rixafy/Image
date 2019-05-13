@@ -66,6 +66,6 @@ class LocaleImageRepository
     public function getQueryBuilderForAll(): QueryBuilder
     {
         return $this->getRepository()->createQueryBuilder('e')
-            ->orderBy('e.created_at');
+            ->orderBy('e.createdAt');
     }
 }
