@@ -29,17 +29,17 @@ class Image implements ImageInterface
     public function __construct(UuidInterface $id, ImageData $imageData)
     {
     	$this->id = $id;
-        $this->image_group = $imageData->imageGroup;
+        $this->imageGroup = $imageData->imageGroup;
 
 		[$this->width, $this->height] = getimagesize($imageData->file['tmp_name']);
-		$this->file_extension = pathinfo($imageData->file['name'], PATHINFO_EXTENSION);
+		$this->fileExtension = pathinfo($imageData->file['name'], PATHINFO_EXTENSION);
 
 		$this->edit($imageData);
     }
 
     public function edit(ImageData $imageData): void
     {
-        $this->alternative_text = $imageData->alternativeText;
+        $this->alternativeText = $imageData->alternativeText;
         $this->title = $imageData->title;
         $this->description = $imageData->description;
     }
@@ -55,7 +55,7 @@ class Image implements ImageInterface
 
         $data->description = $this->description;
         $data->title = $this->title;
-        $data->alternativeText = $this->alternative_text;
+        $data->alternativeText = $this->alternativeText;
 
         return $data;
     }

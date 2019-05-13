@@ -53,7 +53,7 @@ class ImageRepository
 	{
 		/** @var Image $image */
 		$image = $this->getRepository()->findOneBy([
-			'url_name' => $urlName
+			'urlName' => $urlName
 		]);
 
 		if ($image === null) {
@@ -65,7 +65,7 @@ class ImageRepository
 
     public function getQueryBuilderForAll(): QueryBuilder
     {
-        return $this->getRepository()->createQueryBuilder('i')
-            ->orderBy('i.created_at');
+        return $this->getRepository()->createQueryBuilder('e')
+            ->orderBy('e.created_at');
     }
 }

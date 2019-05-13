@@ -37,7 +37,7 @@ class LocaleImage extends EntityTranslator implements ImageInterface
      * @Translatable
      * @var string
      */
-    private $url_name;
+    private $urlName;
 
     /**
      * @Translatable
@@ -55,7 +55,7 @@ class LocaleImage extends EntityTranslator implements ImageInterface
      * @Translatable
      * @var string
      */
-    private $alternative_text;
+    private $alternativeText;
 
     /**
      * One LocaleImage has Many Translations
@@ -68,11 +68,11 @@ class LocaleImage extends EntityTranslator implements ImageInterface
     public function __construct(UuidInterface $id, ImageData $imageData)
     {
     	$this->id = $id;
-        $this->image_group = $imageData->imageGroup;
+        $this->imageGroup = $imageData->imageGroup;
         $this->translations = new ArrayCollection();
 
 		[$this->width, $this->height] = getimagesize($imageData->file['tmp_name']);
-		$this->file_extension = pathinfo($imageData->file['name'], PATHINFO_EXTENSION);
+		$this->fileExtension = pathinfo($imageData->file['name'], PATHINFO_EXTENSION);
 
 		$this->edit($imageData);
     }
@@ -93,7 +93,7 @@ class LocaleImage extends EntityTranslator implements ImageInterface
 
         $data->description = $this->description;
         $data->title = $this->title;
-        $data->alternativeText = $this->alternative_text;
+        $data->alternativeText = $this->alternativeText;
         $data->language = $this->translationLanguage;
 
         return $data;
@@ -101,7 +101,7 @@ class LocaleImage extends EntityTranslator implements ImageInterface
 
     public function getUrlName(): string
     {
-        return $this->url_name;
+        return $this->urlName;
     }
 
     public function getDescription(): string
@@ -116,7 +116,7 @@ class LocaleImage extends EntityTranslator implements ImageInterface
 
     public function getAlternativeText(): string
     {
-        return $this->alternative_text;
+        return $this->alternativeText;
     }
 
     public function getTranslations()

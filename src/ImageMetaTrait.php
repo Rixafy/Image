@@ -22,7 +22,7 @@ trait ImageMetaTrait
      * @ORM\Column(type="string", length=127, nullable=true)
      * @var string
      */
-    private $alternative_text;
+    private $alternativeText;
 
     public function getDescription(): string
     {
@@ -36,6 +36,6 @@ trait ImageMetaTrait
 
     public function getAlternativeText(): string
     {
-        return $this->alternative_text;
+        return $this->alternativeText;
     }
 }

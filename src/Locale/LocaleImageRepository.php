@@ -36,7 +36,7 @@ class LocaleImageRepository
     {
         /** @var LocaleImage $localeImage */
         $localeImage = $this->getRepository()->findOneBy([
-            'url_name' => $urlName
+            'urlName' => $urlName
         ]);
 
         if ($localeImage === null) {
@@ -65,7 +65,7 @@ class LocaleImageRepository
 
     public function getQueryBuilderForAll(): QueryBuilder
     {
-        return $this->getRepository()->createQueryBuilder('l')
-            ->orderBy('l.created_at');
+        return $this->getRepository()->createQueryBuilder('e')
+            ->orderBy('e.created_at');
     }
 }

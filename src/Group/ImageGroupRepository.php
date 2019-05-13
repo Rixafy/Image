@@ -65,7 +65,7 @@ class ImageGroupRepository
 
     public function getQueryBuilderForAll(): QueryBuilder
     {
-        return $this->getRepository()->createQueryBuilder('i')
-            ->orderBy('i.created_at');
+        return $this->getRepository()->createQueryBuilder('e')
+            ->orderBy('e.created_at');
     }
 }

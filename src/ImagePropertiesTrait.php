@@ -12,7 +12,7 @@ trait ImagePropertiesTrait
      * @ORM\Column(type="string", length=255, nullable=true)
      * @var string
      */
-    private $real_path;
+    private $realPath;
 
     /**
      * @ORM\Column(type="smallint")
@@ -30,13 +30,13 @@ trait ImagePropertiesTrait
      * @ORM\Column(type="string", length=5, nullable=true)
      * @var string
      */
-    private $file_format;
+    private $fileFormat;
 
     /**
      * @ORM\Column(type="string", length=5)
      * @var string
      */
-    private $file_extension;
+    private $fileExtension;
 
     /**
      * Many Images have One ImageGroup
@@ -44,11 +44,11 @@ trait ImagePropertiesTrait
      * @ORM\ManyToOne(targetEntity="\Rixafy\Image\Group\ImageGroup")
      * @var ImageGroup
      */
-    private $image_group;
+    private $imageGroup;
 
     public function getRealPath(): string
     {
-        return $this->real_path;
+        return $this->realPath;
     }
 
     public function getWidth(): int
@@ -63,16 +63,16 @@ trait ImagePropertiesTrait
 
     public function getFileFormat(): string
     {
-        return $this->file_format;
+        return $this->fileFormat;
     }
 
 	public function getFileExtension(): string
 	{
-		return $this->file_extension;
+		return $this->fileExtension;
 	}
 
     public function getImageGroup(): ImageGroup
     {
-        return $this->image_group;
+        return $this->imageGroup;
     }
 }
