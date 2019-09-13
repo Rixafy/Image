@@ -11,7 +11,7 @@ use Doctrine\ORM\QueryBuilder;
 use Ramsey\Uuid\UuidInterface;
 use Rixafy\Image\Exception\ImageNotFoundException;
 
-class ImageRepository
+abstract class ImageRepository
 {
     /** @var EntityManagerInterface */
     private $entityManager;
@@ -49,15 +49,15 @@ class ImageRepository
 	/**
 	 * @throws ImageNotFoundException
 	 */
-	public function getByUrlName(string $urlName): Image
+	public function getByPath(string $path): Image
 	{
 		/** @var Image $image */
 		$image = $this->getRepository()->findOneBy([
-			'urlName' => $urlName
+			'path' => $path
 		]);
 
 		if ($image === null) {
-			throw new ImageNotFoundException('Image with url ' . $urlName . ' not found.');
+			throw new ImageNotFoundException('Image with path ' . $path . ' not found.');
 		}
 
 		return $image;

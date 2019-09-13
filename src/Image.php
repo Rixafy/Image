@@ -13,7 +13,7 @@ use Rixafy\DoctrineTraits\DateTimeTrait;
  * @ORM\HasLifecycleCallbacks
  * @ORM\Table(name="image")
  */
-class Image implements ImageInterface
+class Image
 {
 	/**
 	 * @var UuidInterface
@@ -22,26 +22,37 @@ class Image implements ImageInterface
 	 */
 	protected $id;
 
+	/**
+	 * @ORM\Column(type="string", unique=true, length=255)
+	 * @var string
+	 */
+	private $path;
+
+	/**
+	 * @ORM\Column(type="string", length=127, nullable=true)
+	 * @var string
+	 */
+	private $caption;
+
+	/**
+	 * @ORM\Column(type="string", length=127, nullable=true)
+	 * @var string
+	 */
+	private $alternativeText;
+
     use DateTimeTrait;
-    use ImagePropertiesTrait;
-    use ImageMetaTrait;
 
     public function __construct(UuidInterface $id, ImageData $imageData)
     {
     	$this->id = $id;
-        $this->imageGroup = $imageData->imageGroup;
-
-		[$this->width, $this->height] = getimagesize($imageData->file['tmp_name']);
-		$this->fileExtension = pathinfo($imageData->file['name'], PATHINFO_EXTENSION);
-
+		$this->path = $imageData->path;
 		$this->edit($imageData);
     }
 
     public function edit(ImageData $imageData): void
     {
         $this->alternativeText = $imageData->alternativeText;
-        $this->title = $imageData->title;
-        $this->description = $imageData->description;
+        $this->caption = $imageData->caption;
     }
 
     public function getId(): UuidInterface
@@ -52,11 +63,24 @@ class Image implements ImageInterface
     public function getData(): ImageData
     {
         $data = new ImageData();
-
-        $data->description = $this->description;
-        $data->title = $this->title;
+        $data->caption = $this->caption;
         $data->alternativeText = $this->alternativeText;
 
         return $data;
     }
+
+	public function getPath(): string
+	{
+		return $this->path;
+	}
+
+	public function getCaption(): ?string
+	{
+		return $this->caption;
+	}
+
+	public function getAlternativeText(): ?string
+	{
+		return $this->alternativeText;
+	}
 }

@@ -4,26 +4,14 @@ declare(strict_types=1);
 
 namespace Rixafy\Image;
 
-use Rixafy\Image\Group\ImageGroup;
-use Rixafy\Language\Language;
-
 class ImageData
 {
     /** @var string */
-    public $description;
+    public $path;
 
     /** @var string */
-    public $title;
+    public $caption;
 
     /** @var string */
     public $alternativeText;
-
-    /** @var array */
-    public $file;
-
-    /** @var ImageGroup */
-    public $imageGroup;
-
-    /** @var Language */
-    public $language;
 }
