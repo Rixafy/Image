@@ -16,8 +16,6 @@
         }
     },
     "require": {
-        "rixafy/language": "dev-master",
-        "rixafy/translation": "dev-master",
         "nette/utils": "^3.0"
     },
     "config": {
