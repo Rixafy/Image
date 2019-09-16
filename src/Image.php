@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Rixafy\Image;
 
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use Ramsey\Uuid\UuidInterface;
-use Rixafy\DoctrineTraits\DateTimeTrait;
 
 /**
  * @ORM\Entity
@@ -54,12 +54,23 @@ class Image
 	 */
 	private $alternativeText;
 
-    use DateTimeTrait;
+	/**
+	 * @ORM\Column(type="datetime")
+	 * @var DateTime
+	 */
+	private $createdAt;
+
+	/**
+	 * @ORM\Column(type="datetime")
+	 * @var DateTime
+	 */
+	private $updatedAt;
 
     public function __construct(UuidInterface $id, ImageData $imageData)
     {
     	$this->id = $id;
 		$this->extension = pathinfo($imageData->originalName, PATHINFO_EXTENSION);
+		$this->createdAt = new DateTime();
 		$this->edit($imageData);
     }
 
@@ -68,6 +79,7 @@ class Image
         $this->alternativeText = $imageData->alternativeText;
         $this->caption = $imageData->caption;
         $this->originalName = $imageData->originalName;
+        $this->updatedAt = new DateTime();
     }
 
     public function getId(): UuidInterface
