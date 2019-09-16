@@ -16,20 +16,25 @@ class ImageFacade extends ImageRepository
     /** @var ImageFactory */
     private $imageFactory;
 
+    /** @var ImageConfig */
+    private $imageConfig;
+
     public function __construct(
-        EntityManagerInterface $entityManager,
-        ImageFactory $imageFactory
-    ) {
+		EntityManagerInterface $entityManager,
+		ImageFactory $imageFactory,
+		ImageConfig $imageConfig
+	) {
     	parent::__construct($entityManager);
         $this->entityManager = $entityManager;
         $this->imageFactory = $imageFactory;
-    }
+		$this->imageConfig = $imageConfig;
+	}
 
-    public function create(ImageData $imageData): Image
+    public function create(ImageData $imageData, callable $saveFunction): Image
     {
         $image = $this->imageFactory->create($imageData);
 
-        //todo: save on disk
+        $saveFunction($this->imageConfig->getSavePath($image));
 
         $this->entityManager->persist($image);
         $this->entityManager->flush();
@@ -55,11 +60,11 @@ class ImageFacade extends ImageRepository
      */
     public function remove(UuidInterface $id): void
     {
-        $entity = $this->get($id);
+        $image = $this->get($id);
 
-		//todo: remove from disk
+		@unlink($image->getPath());
 
-        $this->entityManager->remove($entity);
+        $this->entityManager->remove($image);
 
         $this->entityManager->flush();
     }

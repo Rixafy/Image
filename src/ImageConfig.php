@@ -37,9 +37,19 @@ class ImageConfig
         $this->webpOptimization = $webpOptimization;
     }
 
-    public function getSavePath(): string
+    public function getSavePath(Image $image = null): string
     {
-        return $this->savePath;
+    	if ($image === null) {
+			return $this->savePath;
+		} else {
+    		return str_replace([
+    			'%year%',
+				'%month%'
+			], [
+				$image->getCreatedAt()->format('Y'),
+				$image->getCreatedAt()->format('m')
+			], $this->savePath);
+		}
     }
 
     public function getCachePath(): string
