@@ -12,7 +12,7 @@ use Rixafy\DoctrineTraits\DateTimeTrait;
  * @ORM\Entity
  * @ORM\HasLifecycleCallbacks
  * @ORM\Table(name="image", indexes={
- * 		@ORM\Index(columns={"originalName"})
+ * 		@ORM\Index(columns={"original_name"})
  *	 })
  */
 class Image
