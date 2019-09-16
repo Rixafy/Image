@@ -28,8 +28,8 @@ class ImageConfig
     private $webpOptimization;
 
     public function __construct(
-        string $savePath = 'img/upload',
-        string $cachePath = 'images',
+        string $savePath = '%appDir%/../public/img/upload/',
+        string $cachePath = 'images/',
         $webpOptimization = true
     ) {
         $this->savePath = $savePath;

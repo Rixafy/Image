@@ -11,7 +11,9 @@ use Rixafy\DoctrineTraits\DateTimeTrait;
 /**
  * @ORM\Entity
  * @ORM\HasLifecycleCallbacks
- * @ORM\Table(name="image")
+ * @ORM\Table(name="image", indexes={
+ * 		@ORM\Index(columns={"originalName"})
+ *	 })
  */
 class Image
 {
@@ -21,6 +23,18 @@ class Image
 	 * @ORM\Column(type="uuid_binary", unique=true)
 	 */
 	protected $id;
+
+	/**
+	 * @ORM\Column(type="string", length=63)
+	 * @var string
+	 */
+	private $originalName;
+
+	/**
+	 * @ORM\Column(type="string", length=5)
+	 * @var string
+	 */
+	private $extension;
 
 	/**
 	 * @ORM\Column(type="string", unique=true, length=255)
@@ -46,6 +60,7 @@ class Image
     {
     	$this->id = $id;
 		$this->path = $imageData->path;
+		$this->extension = pathinfo($imageData->originalName, PATHINFO_EXTENSION);
 		$this->edit($imageData);
     }
 
@@ -53,6 +68,7 @@ class Image
     {
         $this->alternativeText = $imageData->alternativeText;
         $this->caption = $imageData->caption;
+        $this->originalName = $imageData->originalName;
     }
 
     public function getId(): UuidInterface
@@ -82,5 +98,15 @@ class Image
 	public function getAlternativeText(): ?string
 	{
 		return $this->alternativeText;
+	}
+
+	public function getOriginalName(): string
+	{
+		return $this->originalName;
+	}
+
+	public function getExtension(): string
+	{
+		return $this->extension;
 	}
 }

@@ -7,6 +7,9 @@ namespace Rixafy\Image;
 class ImageData
 {
     /** @var string */
+    public $originalName;
+
+    /** @var string */
     public $path;
 
     /** @var string */
