@@ -125,4 +125,14 @@ class Image
 	{
 		return $this->extension;
 	}
+
+	public function getCreatedAt(): DateTime
+	{
+		return $this->createdAt;
+	}
+
+	public function getUpdatedAt(): DateTime
+	{
+		return $this->updatedAt;
+	}
 }
