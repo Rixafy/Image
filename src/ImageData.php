@@ -10,9 +10,6 @@ class ImageData
     public $originalName;
 
     /** @var string */
-    public $path;
-
-    /** @var string */
     public $caption;
 
     /** @var string */

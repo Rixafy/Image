@@ -59,7 +59,6 @@ class Image
     public function __construct(UuidInterface $id, ImageData $imageData)
     {
     	$this->id = $id;
-		$this->path = $imageData->path;
 		$this->extension = pathinfo($imageData->originalName, PATHINFO_EXTENSION);
 		$this->edit($imageData);
     }
@@ -88,6 +87,11 @@ class Image
 	public function getPath(): string
 	{
 		return $this->path;
+	}
+
+	public function onFileSave($path): void
+	{
+		$this->path = $path;
 	}
 
 	public function getCaption(): ?string
