@@ -58,7 +58,7 @@ class ImageConfig
 			], $this->savePath);
 		}
 
-		mkdir($this->savePath, 0755, true);
+		@mkdir($this->savePath, 0755, true);
 
     	return $this->savePath;
     }
