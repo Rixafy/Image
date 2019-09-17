@@ -34,9 +34,11 @@ class ImageFacade extends ImageRepository
     {
         $image = $this->imageFactory->create($imageData);
 
-        $path = $this->imageConfig->getSavePath($image) . (string) $image->getId() . '.' . pathinfo($imageData->originalName, PATHINFO_EXTENSION);
+        $fileName = (string) $image->getId() . '.' . pathinfo($imageData->originalName, PATHINFO_EXTENSION);
+        $path = $this->imageConfig->getSavePath($image) . $fileName;
+		$publicPath = $this->imageConfig->getPublicPath($image) . $fileName;
         $saveFunction($path);
-        $image->onFileSave($path, $this->imageConfig->getPublicPath($image));
+        $image->onFileSave($path, $publicPath);
 
         $this->entityManager->persist($image);
         $this->entityManager->flush();
