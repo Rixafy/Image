@@ -41,8 +41,8 @@ class ImageConfig
     {
     	if ($image !== null) {
     		$this->savePath = str_replace([
-    			'%year%',
-				'%month%'
+    			'$year',
+				'$month'
 			], [
 				$image->getCreatedAt()->format('Y'),
 				$image->getCreatedAt()->format('n')
