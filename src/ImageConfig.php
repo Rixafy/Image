@@ -39,17 +39,19 @@ class ImageConfig
 
     public function getSavePath(Image $image = null): string
     {
-    	if ($image === null) {
-			return $this->savePath;
-		} else {
-    		return str_replace([
+    	if ($image !== null) {
+    		$this->savePath = str_replace([
     			'%year%',
 				'%month%'
 			], [
 				$image->getCreatedAt()->format('Y'),
-				$image->getCreatedAt()->format('m')
+				$image->getCreatedAt()->format('n')
 			], $this->savePath);
 		}
+
+		mkdir($this->savePath, 0755, true);
+
+    	return $this->savePath;
     }
 
     public function getCachePath(): string
