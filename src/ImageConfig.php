@@ -28,7 +28,7 @@ class ImageConfig
     private $webpOptimization;
 
     public function __construct(
-        string $savePath = '%appDir%/../public/img/upload/',
+        string $savePath = '%appDir%/../public/img/upload/$year/$month/',
         string $cachePath = 'images/',
         $webpOptimization = true
     ) {
