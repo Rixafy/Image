@@ -45,7 +45,7 @@ class ImageConfig
 				'$month'
 			], [
 				$image->getCreatedAt()->format('Y'),
-				$image->getCreatedAt()->format('n')
+				$image->getCreatedAt()->format('m')
 			], $this->savePath);
 		}
 
