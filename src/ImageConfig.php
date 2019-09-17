@@ -14,6 +14,13 @@ class ImageConfig
     private $savePath;
 
     /**
+     * Path for getting images through http
+     *
+     * @var string
+     */
+    private $publicPath;
+
+    /**
      * Path for caching images, for instance "../thumbs"
      *
      * @var string
@@ -29,11 +36,13 @@ class ImageConfig
 
     public function __construct(
         string $savePath = '%appDir%/../public/img/upload/$year/$month/',
+        string $publicPath = '/img/upload/$year/$month/',
         string $cachePath = 'images/',
         $webpOptimization = true
     ) {
         $this->savePath = $savePath;
         $this->cachePath = $cachePath;
+        $this->publicPath = $publicPath;
         $this->webpOptimization = $webpOptimization;
     }
 
@@ -52,6 +61,21 @@ class ImageConfig
 		mkdir($this->savePath, 0755, true);
 
     	return $this->savePath;
+    }
+
+    public function getPublicPath(Image $image = null): string
+    {
+    	if ($image !== null) {
+    		$this->publicPath = str_replace([
+    			'$year',
+				'$month'
+			], [
+				$image->getCreatedAt()->format('Y'),
+				$image->getCreatedAt()->format('m')
+			], $this->publicPath);
+		}
+
+    	return $this->publicPath;
     }
 
     public function getCachePath(): string

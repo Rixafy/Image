@@ -43,6 +43,12 @@ class Image
 	private $path;
 
 	/**
+	 * @ORM\Column(type="string", unique=true, length=255)
+	 * @var string
+	 */
+	private $publicPath;
+
+	/**
 	 * @ORM\Column(type="string", length=127, nullable=true)
 	 * @var string
 	 */
@@ -101,9 +107,15 @@ class Image
 		return $this->path;
 	}
 
-	public function onFileSave($path): void
+	public function getPublicPath(): string
+	{
+		return $this->publicPath;
+	}
+
+	public function onFileSave(string $path, string $publicPath): void
 	{
 		$this->path = $path;
+		$this->publicPath = $publicPath;
 	}
 
 	public function getCaption(): ?string

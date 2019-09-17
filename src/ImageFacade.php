@@ -36,7 +36,7 @@ class ImageFacade extends ImageRepository
 
         $path = $this->imageConfig->getSavePath($image) . (string) $image->getId() . '.' . pathinfo($imageData->originalName, PATHINFO_EXTENSION);
         $saveFunction($path);
-        $image->onFileSave($path);
+        $image->onFileSave($path, $this->imageConfig->getPublicPath($image));
 
         $this->entityManager->persist($image);
         $this->entityManager->flush();
