@@ -66,6 +66,6 @@ abstract class ImageRepository
     public function getQueryBuilderForAll(): QueryBuilder
     {
         return $this->getRepository()->createQueryBuilder('e')
-            ->orderBy('e.createdAt');
+            ->orderBy('e.createdAt', 'DESC');
     }
 }
