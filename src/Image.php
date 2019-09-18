@@ -98,6 +98,7 @@ class Image
         $data = new ImageData();
         $data->caption = $this->caption;
         $data->alternativeText = $this->alternativeText;
+        $data->originalName = $this->originalName;
 
         return $data;
     }
