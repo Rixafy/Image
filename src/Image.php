@@ -25,7 +25,7 @@ class Image
 	protected $id;
 
 	/**
-	 * @ORM\Column(type="string", length=63)
+	 * @ORM\Column(type="string", length=225)
 	 * @var string
 	 */
 	private $originalName;
